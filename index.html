@@ -158,6 +158,12 @@ hr {
   
 }
 
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 5px 0;
+    border-radius: 4px;
+}
 
 .tab-content.clearfix {
    
@@ -202,8 +208,6 @@ li.border {
       
 
       
-       <li><a href="/login">Login</a></li>
-      
 
             </ul>
           </div>
@@ -214,7 +218,7 @@ li.border {
 	<div class="row" style="height: 100%;">
 		<div class="col-sm-2" style="height:100%;">
 				<!-- <ul  class="nav nav-pills" ><li class="active border"><a href="#4a" data-toggle="tab">Categories</a></li></ul><div class="tab-content clearfix" style="height:85%;"><div class="tab-pane active taboutline" id="4a"><div class="demo" id="categories"> </div></div></div> -->
-                <div class="tab-content clearfix" style="height:85%;">
+                <div class="tab-content clearfix" style="height:100%;">
                     <div class="tab-pane active taboutline" id="4a">
                         <div class="demo" id="categories">
                             
@@ -274,12 +278,12 @@ li.border {
     		<div class="col-sm-10" style="height: 100%;">
       			<div class="row" style="height: 57%;">
       				<div id="map" class="map" style="height: 100%;"></div>
-				<div id="info">&nbsp;</div>
+				<!-- <div id="info">&nbsp;</div> -->
       			</div>
+                  <div>Showing top 15 results</div>
+                        <!-- <hr> -->
 
-                        <hr>
-
-      			<div class="row" style="height: 30%; width:102%; overflow:auto; overflow-x: hidden;">
+      			<div class="row" id="resultsouter" style="border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
         			<div id="results" style="height: 100%;"></div>
       			</div>
 			<div class="row" style="height: 4%;text-align:center;">
@@ -544,61 +548,10 @@ document.getElementById("contactemail").innerHTML = "E-mail: "+configobj.contact
 document.getElementById("phoneform").value = configobj.contactphone
 document.getElementById("emailform").value = configobj.contactemail
 
-function saveabout() {
-}
-
-function savecontact(){
-var phone = document.getElementById("phoneform").value;
-var email = document.getElementById("emailform").value;
-configobj.contactemail=email;
-configobj.contactphone=phone;
-//console.log(configobj);
- $.ajax({
-                url: "https://gstoredev.unm.edu/apps/rgis/savewebconfig",
-                type: 'POST',
-                data: JSON.stringify(configobj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-
-                success: function (data) {
-document.getElementById("phoneform").value=configobj.contactphone;
-document.getElementById("emailform").value=configobj.contactemail;
-                },
-                error: function (data) {
-                    alert(data);
-                }
-
-            });
 
 
 
-}
 
-
-
-function saveabout() {
-    var x = document.getElementById("abouttextform").value;
-    //console.log(x);
-    configobj.abouttext=x
-    //console.log(configobj);
-           $.ajax({
-                url: "/apps/rgis/savewebconfig",
-                type: 'POST',
-    		data: JSON.stringify(configobj),
-    		contentType: "application/json; charset=utf-8",
-    		dataType: "json",
-
-                success: function (data) {
-                    document.getElementById("abouttext").innerHTML = configobj.abouttext
-                },
-                error: function (data) {
-                    alert(data);
-                }
-
-            });
-
-
-}
 
 function bounce(t) {
   var s = 7.5625, p = 2.75, l;
@@ -630,33 +583,114 @@ function Searcher(url){
                 type: 'GET',
                 success: function (data) {
                 	var totalPages = data.total;
- 		//console.log(data)
-
-                   if(totalPages>15){
-
-                	$('#pagination-gstore').twbsPagination('destroy');
-                	$('#pagination-gstore').twbsPagination({
+                    if(totalPages>15){
+                	    $('#pagination-gstore').twbsPagination('destroy');
+                	    $('#pagination-gstore').twbsPagination({
                         	totalPages: totalPages/15,
                         	visiblePages: 10,
                         	onPageClick: function (event, page) {
                                 	offsetnum=page*15
                                 	offsetnum=offsetnum-15		
-					newurl=url+"&offset="+offsetnum
+					                newurl=url+"&offset="+offsetnum
 					//console.log(newurl)
-					$.ajax({
-                				url: newurl,
-                				type: 'GET',
-                				success: function (data) {
-						//console.log(data)
-							html = template(data.results);
-							//console.log(html)
-							$('#results').html(html);
+					                $.ajax({
+                				        url: newurl,
+                				        type: 'GET',
+                				        success: function (data) {
+
+
+                    newFeatures=[]
+                    for (var i = 0; i < data.results.length; i++){
+                        currentBox=data.results[i].spatial.bbox
+                        currentFeature = {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Polygon",
+                            
+                            "coordinates":[[
+                                [
+                                    currentBox[0],
+                                    currentBox[1]
+                                ],
+                                [
+                                    currentBox[2],
+                                    currentBox[1]
+                                ],
+                                [
+                                    currentBox[2],
+                                    currentBox[3]
+                                ],
+                                [
+                                    currentBox[0],
+                                    currentBox[3]
+                                ]
+                                ]]
+                        }
+                        }
+                    //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
+                        newFeatures.push(currentFeature)             
+                    }
+                    geojsonObject.features=newFeatures
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+                    });
+                    vectorLayer.setSource(vectorSource)
+
+
+
+
+							                html = template(data.results);
+							                $('#results').html(html);
                                 			$('#page-content').text('Page ' + page);
-						},
-					});
+						                },
+					                });
                         	}
-                	});
-                	html = template(data.results);
+                	    });
+                    html = template(data.results);
+                    // console.log(data.results)
+
+
+
+
+
+
+                    newFeatures=[]
+                    for (var i = 0; i < data.results.length; i++){
+                        currentBox=data.results[i].spatial.bbox
+                        currentFeature = {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Polygon",
+                            
+                            "coordinates":[[
+                                [
+                                    currentBox[0],
+                                    currentBox[1]
+                                ],
+                                [
+                                    currentBox[2],
+                                    currentBox[1]
+                                ],
+                                [
+                                    currentBox[2],
+                                    currentBox[3]
+                                ],
+                                [
+                                    currentBox[0],
+                                    currentBox[3]
+                                ]
+                                ]]
+                        }
+                        }
+                    //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
+                        newFeatures.push(currentFeature)             
+                    }
+                    geojsonObject.features=newFeatures
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+                    });
+                    vectorLayer.setSource(vectorSource)
+                    vectorLayer.setStyle(styleFunction)
                 	$('#results').html(html);
 
 
@@ -952,6 +986,74 @@ function deletedataset(uuid) {
 
 //var googleLayer = new olgm.layer.Google();
 
+
+var geojsonObject = {
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {"name": "EPSG:4326"}
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [
+                        -109.330067,
+                        31.309483
+                    ],
+                    [
+                        -102.943984,
+                        31.309483
+                    ],
+                    [
+                        -102.943984,
+                        37.068834
+                    ],
+                                      [
+                        -109.330067,
+                        37.068834
+                    ]
+                ]]
+            }
+        }
+    ]
+};
+
+var vectorSource = new ol.source.Vector({
+  features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+});
+console.log(vectorSource)
+
+
+var styles = {
+  'Polygon': new ol.style.Style(
+    {
+    fill: new ol.style.Fill({
+      color: 'rgba(0, 0, 0, 0.0001)'
+    }),
+      
+    stroke: new ol.style.Stroke({
+      color: 'rgba(1, 151, 186)',
+
+      width: 1
+    })
+
+  })
+};
+
+var vectorLayer = new ol.layer.Vector({
+  source: vectorSource,
+  style: styleFunction
+  
+});
+
+var styleFunction = function(feature) {
+  return styles[feature.getGeometry().getType()];
+};
+
+
         var layers = [
 //                new ol.layer.Tile({
    //                     source: new ol.source.OSM()
@@ -979,6 +1081,7 @@ function deletedataset(uuid) {
                             })
                         ]
                     }),
+                    
                     new ol.layer.Tile({
                         title: 'OSM',
                         type: 'base',
@@ -993,7 +1096,8 @@ function deletedataset(uuid) {
         			key: 'Ahk8GEcI1V0I7ArMAJpMG6eUedGOsN_EFo9R5kaJcNxjpZYT98KrCPQxD-5CN0-p',
         			imagerySet: 'Road'
       		    	})
-		    })
+            }),
+            vectorLayer
 /*,
                    new ol.layer.Tile({
 			title: 'test',
@@ -1028,15 +1132,59 @@ function deletedataset(uuid) {
         target: 'map',
         view: view
       });
-
+      new ol.layer.Vector({title: 'boxes'})
 
     	var layerSwitcher = new ol.control.LayerSwitcher({
-        	tipLabel: 'Légende' // Optional label for button
+        	tipLabel: 'Legend' // Optional label for button
     	});
 
     	map.addControl(layerSwitcher);
 
+// var geojsonObject = {
+//     "type": "FeatureCollection",
+//     "crs": {
+//         "type": "name",
+//         "properties": {"name": "EPSG:4326"}
+//     },
+//     "features": [
+//         {
+//             "type": "Feature",
+//             "geometry": {
+//                 "type": "Polygon",
+//                 "coordinates": [[
+//                     [
+//                         -109.330067,
+//                         31.309483
+//                     ],
+//                     [
+//                         -102.943984,
+//                         31.309483
+//                     ],
+//                     [
+//                         -102.943984,
+//                         37.068834
+//                     ],
+//                                       [
+//                         -109.330067,
+//                         37.068834
+//                     ]
+//                 ]]
+//             }
+//         }
+//     ]
+// };
+
+// var vectorSource = new ol.source.Vector({
+//   features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+// });
+
+// var vectorLayer = new ol.layer.Vector({
+//   source: vectorSource,
+// //   style: styleFunction
+// });
+
 </script>
+
 
 </html>
 
