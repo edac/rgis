@@ -45,6 +45,12 @@
     padding: 8px 24px !important;
 }
 
+.hovered{
+    background-color: honeydew;
+
+
+}
+	
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -277,15 +283,18 @@ li.border {
 		</div>
     		<div class="col-sm-10" style="height: 100%;">
       			<div class="row" style="height: 57%;">
-      				<div id="map" class="map" style="height: 100%;"></div>
+      				<div id="map" class="map" style="height: 100%; "></div>
 				<!-- <div id="info">&nbsp;</div> -->
       			</div>
-                  <div>Showing top 15 results</div>
+                  <span>Showing top 15 results</span>
+                  <span id="hovername"></span>
                         <!-- <hr> -->
 
-      			<div class="row" id="resultsouter" style="border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
+
+      			<div class="row" id="resultsouter" style=" border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
         			<div id="results" style="height: 100%;"></div>
-      			</div>
+                </div>
+            
 			<div class="row" style="height: 4%;text-align:center;">
 				<ul id="pagination-gstore" class="pagination-sm"></ul>
 			</div>
@@ -424,7 +433,7 @@ li.border {
 		</div> -->
 	</div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
 	<div>
 		<div>
 			Download: 
@@ -460,7 +469,7 @@ li.border {
 		</div>
         </div>
    </div>
-	<div class="col-md-1">Last Updated:{{lastupdate}}
+	<div class="col-md-2">Last Updated:{{lastupdate}}
 	</div>
 
         <div class="col-md-1">
@@ -486,7 +495,7 @@ li.border {
 
 
 </div>
-<hr id="{{uuid}}_hr">
+<!-- <hr id="{{uuid}}_hr"> -->
 {{/each}}
 </script>
 
@@ -604,6 +613,11 @@ function Searcher(url){
                         currentBox=data.results[i].spatial.bbox
                         currentFeature = {
                         "type": "Feature",
+                        "id": data.results[i].uuid,
+                        "properties": {
+                            "name": data.results[i].description,
+                            "id": data.results[i].uuid,
+                        },
                         "geometry": {
                             "type": "Polygon",
                             
@@ -631,6 +645,7 @@ function Searcher(url){
                         newFeatures.push(currentFeature)             
                     }
                     geojsonObject.features=newFeatures
+                    console.log(geojsonObject)
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
                     });
@@ -830,20 +845,7 @@ if (!String.prototype.includes) {
 	}
 
 
-function deletedataset(uuid) {
-    $.post("/delete/dataset/" + uuid, function () {
-        console.log("success");
-    }).done(function () {
-        console.log("second success");
-        $( "#"+uuid ).remove();
-        $( "#"+uuid+"_hr" ).remove();
-    }).fail(function (data) {
-        
-        alert( "ERROR: " + data.responseText );
-    }).always(function () {
-        console.log("finished");
-    });
-}
+
 
 	function addtomap(id, name, title) {
 		if (name.match(/^\d/)) {
@@ -1000,20 +1002,20 @@ var geojsonObject = {
                 "type": "Polygon",
                 "coordinates": [[
                     [
-                        -109.330067,
-                        31.309483
+                        0,
+                        0
                     ],
                     [
-                        -102.943984,
-                        31.309483
+                        0,
+                        0
                     ],
                     [
-                        -102.943984,
-                        37.068834
+                        0,
+                        0
                     ],
                                       [
-                        -109.330067,
-                        37.068834
+                        0,
+                        0
                     ]
                 ]]
             }
@@ -1055,11 +1057,6 @@ var styleFunction = function(feature) {
 
 
         var layers = [
-//                new ol.layer.Tile({
-   //                     source: new ol.source.OSM()
-     //           })
-
-
             new ol.layer.Group({
                 'title': 'Base maps',
                 layers: [
@@ -1097,24 +1094,7 @@ var styleFunction = function(feature) {
         			imagerySet: 'Road'
       		    	})
             }),
-            vectorLayer
-/*,
-                   new ol.layer.Tile({
-			title: 'test',
-			type:  'base',
-			visible: false,
-			source: new 
-			ol.source.TileImage({
-		
-			url: 'http://maps.google.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i{y}!4i256!2m3!1e0!2sm!3i375060738!3m9!2spl!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0'
-			})
-		   }),*/
-//		   new ol.layer.Tile({
-//			title:'test2',
-//			type: 'base',
-//			visible: true,
-//		   })
-		  
+            vectorLayer	  
                 ]
             })
 
@@ -1132,6 +1112,38 @@ var styleFunction = function(feature) {
         target: 'map',
         view: view
       });
+
+
+// select interaction working on "pointermove"
+var selectPointerMove = new ol.interaction.Select({
+  condition: ol.events.condition.pointerMove
+});
+
+ selecteduuid="lol"
+
+    map.addInteraction(selectPointerMove);
+    selectPointerMove.on('select', function(e) {
+      if (e.selected[0]!=undefined){
+           //e.selected[0].get('id')
+      //  $("#"+e.selected[0].get('id')).prependTo("#ImportantNumbers");
+        var elmnt = document.getElementById(e.selected[0].get('id'));
+        elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('hovername').innerHTML = e.selected[0].get('name')
+        $( "#"+e.selected[0].get('id') ).addClass( "hovered" );
+        selecteduuidstr="#"+selecteduuid
+        console.log(selecteduuidstr)
+        $( selecteduuidstr ).removeClass( "hovered" );
+
+        selecteduuid=e.selected[0].get('id')
+    }else{
+        document.getElementById('hovername').innerHTML =""
+    }
+    
+    
+    
+    });
+
+
       new ol.layer.Vector({title: 'boxes'})
 
     	var layerSwitcher = new ol.control.LayerSwitcher({
@@ -1140,48 +1152,9 @@ var styleFunction = function(feature) {
 
     	map.addControl(layerSwitcher);
 
-// var geojsonObject = {
-//     "type": "FeatureCollection",
-//     "crs": {
-//         "type": "name",
-//         "properties": {"name": "EPSG:4326"}
-//     },
-//     "features": [
-//         {
-//             "type": "Feature",
-//             "geometry": {
-//                 "type": "Polygon",
-//                 "coordinates": [[
-//                     [
-//                         -109.330067,
-//                         31.309483
-//                     ],
-//                     [
-//                         -102.943984,
-//                         31.309483
-//                     ],
-//                     [
-//                         -102.943984,
-//                         37.068834
-//                     ],
-//                                       [
-//                         -109.330067,
-//                         37.068834
-//                     ]
-//                 ]]
-//             }
-//         }
-//     ]
-// };
 
-// var vectorSource = new ol.source.Vector({
-//   features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
-// });
 
-// var vectorLayer = new ol.layer.Vector({
-//   source: vectorSource,
-// //   style: styleFunction
-// });
+
 
 </script>
 
