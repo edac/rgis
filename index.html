@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+
     <script src="javascript/jquery.min.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
     <script src="javascript/jstree.js"></script>
@@ -28,210 +28,257 @@
 </head>
 
 <style>
+    /* navbar */
 
-/* navbar */
-.navbar-default {
-    background-color: #F8F8F8;
-    border-color: #E7E7E7;
-}
-/* Title */
-.navbar-default .navbar-brand {
-    color: #777;
-    
-}
+    .navbar-default {
+        background-color: #F8F8F8;
+        border-color: #E7E7E7;
+    }
 
-.navbar-brand {
-    color: #777;
-    padding: 8px 24px !important;
-}
+    /* Title */
 
-.hovered{
-    background-color: honeydew;
+    .navbar-default .navbar-brand {
+        color: #777;
+
+    }
+
+    .navbar-brand {
+        color: #777;
+        padding: 8px 24px !important;
+    }
+
+    .hovered {
+        background-color: honeydew;
 
 
-}
-	
+    }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    color: #5E5E5E;
-}
-/* Link */
-.navbar-default .navbar-nav > li > a {
-    color: #777;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-    color: #333;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: #E7E7E7;
-}
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-    color: #555;
-    background-color: #D5D5D5;
-}
-/* Caret */
-.navbar-default .navbar-nav > .dropdown > a .caret {
-    border-top-color: #777;
-    border-bottom-color: #777;
-}
-.navbar-default .navbar-nav > .dropdown > a:hover .caret,
-.navbar-default .navbar-nav > .dropdown > a:focus .caret {
-    border-top-color: #333;
-    border-bottom-color: #333;
-}
-.navbar-default .navbar-nav > .open > a .caret,
-.navbar-default .navbar-nav > .open > a:hover .caret,
-.navbar-default .navbar-nav > .open > a:focus .caret {
-    border-top-color: #555;
-    border-bottom-color: #555;
-}
-/* Mobile version */
-.navbar-default .navbar-toggle {
-    border-color: #DDD;
-}
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-    background-color: #DDD;
-}
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: #CCC;
-}
-@media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
+        color: #5E5E5E;
+    }
+
+    /* Link */
+
+    .navbar-default .navbar-nav>li>a {
         color: #777;
     }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-          color: #333;
+
+    .navbar-default .navbar-nav>li>a:hover,
+    .navbar-default .navbar-nav>li>a:focus {
+        color: #333;
     }
+
+    .navbar-default .navbar-nav>.active>a,
+    .navbar-default .navbar-nav>.active>a:hover,
+    .navbar-default .navbar-nav>.active>a:focus {
+        color: #555;
+        background-color: #E7E7E7;
+    }
+
+    .navbar-default .navbar-nav>.open>a,
+    .navbar-default .navbar-nav>.open>a:hover,
+    .navbar-default .navbar-nav>.open>a:focus {
+        color: #555;
+        background-color: #D5D5D5;
+    }
+
+    /* Caret */
+
+    .navbar-default .navbar-nav>.dropdown>a .caret {
+        border-top-color: #777;
+        border-bottom-color: #777;
+    }
+
+    .navbar-default .navbar-nav>.dropdown>a:hover .caret,
+    .navbar-default .navbar-nav>.dropdown>a:focus .caret {
+        border-top-color: #333;
+        border-bottom-color: #333;
+    }
+
+    .navbar-default .navbar-nav>.open>a .caret,
+    .navbar-default .navbar-nav>.open>a:hover .caret,
+    .navbar-default .navbar-nav>.open>a:focus .caret {
+        border-top-color: #555;
+        border-bottom-color: #555;
+    }
+
+    /* Mobile version */
+
+    .navbar-default .navbar-toggle {
+        border-color: #DDD;
+    }
+
+    .navbar-default .navbar-toggle:hover,
+    .navbar-default .navbar-toggle:focus {
+        background-color: #DDD;
+    }
+
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #CCC;
+    }
+
+    @media (max-width: 767px) {
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+            color: #777;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+            color: #333;
+        }
+    }
+
+
+
+
+
+    div.lineunderrow {
+        border: 4px solid #fff;
+        border-bottom: 1px solid #98AFC7;
+        background-color: none;
+    }
+
+
+
+    .navbar {
+        border-radius: 0px;
+    }
+
+
+    #body {
+        height: 90%;
+    }
+
+    /* remove border radius for the tab */
+
+    .Tab1 .nav-pills>li>a {
+        border-radius: 0;
+
+    }
+
+
+    .container-fluid {
+
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .row-first {
+
+        overflow: hidden;
+    }
+
+    hr {
+        margin-top: 3px;
+        margin-bottom: 3px;
+        border: 0;
+        border-top: 2px solid #d3e3ea;
+    }
+
+
+    .taboutline {
+
+        border-width: 1px;
+
+    }
+
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 5px 0;
+        border-radius: 4px;
+    }
+
+    .tab-content.clearfix {
+
+
+        overflow: auto;
+        border-top: #cccccc;
+        border-top-style: solid;
+        border-top-width: 1px;
+    }
+
+    .nav-pills>li>a {
+        border-radius: 0px;
+    }
+
+    li.border {
+        border: #e0e0e0;
+        border-style: solid;
+        border-width: 1px;
+        border-bottom-width: 0px;
+    }
+
+    #panel {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+    }
+    .results-overlay {
+    background-color: rgb(140, 193, 202);
+    opacity: 0.8;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-image: url('images/wait.gif');
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
-
-
-
-
-div.lineunderrow { 
-   border: 4px solid #fff;
-   border-bottom: 1px solid #98AFC7; 
-   background-color: none;
-}
-
-
-
-.navbar {
-    border-radius: 0px;
-}
-
-
-#body {height:90%;}
-/* remove border radius for the tab */
-
-.Tab1 .nav-pills > li > a {
-  border-radius: 0;
-  
-}
-
-
-.container-fluid {
-
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.row-first {
-
-  overflow: hidden;
-}
-
-hr {
-    margin-top: 3px;
-    margin-bottom: 3px;
-    border: 0;
-    border-top: 2px solid #d3e3ea;
-}
-
-
-.taboutline {
- 
-    border-width: 1px;
-  
-}
-
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 5px 0;
-    border-radius: 4px;
-}
-
-.tab-content.clearfix {
-   
-    
-    overflow: auto;
-    border-top: #cccccc;
-    border-top-style: solid;
-    border-top-width: 1px;
-}
-
-.nav-pills>li>a {
-    border-radius: 0px;
-}
-
-li.border {
-    border: #e0e0e0;
-    border-style: solid;
-    border-width: 1px;
-    border-bottom-width: 0px;
-}
-
 </style>
 
 </head>
- <body style="height: 100%;">
-  <nav class="navbar navbar-inverse" style="height: 5%;">
+
+<body style="height: 100%;">
+    <nav class="navbar navbar-inverse" style="height: 5%;">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <div style="cursor: default;" class="navbar-brand"><img src="images/rgislogo.svg" height="40px" alt="RGIS" ></div>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li style="cursor: default;"></li>
-              <li style="cursor: default;"><a>Home</a></li>
-              <li style="cursor: pointer;"><a data-toggle="modal" data-target="#aboutModal" >About</a></li>
-              <li style="cursor: pointer;"><a data-toggle="modal" data-target="#contactModal" >Contact</a></li>
-            </ul>
+            <div class="navbar-header">
+                <div style="cursor: default;" class="navbar-brand">
+                    <img src="images/rgislogo.svg" height="40px" alt="RGIS">
+                </div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li style="cursor: default;"></li>
+                    <li style="cursor: default;">
+                        <a>Home</a>
+                    </li>
+                    <li style="cursor: pointer;">
+                        <a data-toggle="modal" data-target="#aboutModal">About</a>
+                    </li>
+                    <li style="cursor: pointer;">
+                        <a data-toggle="modal" data-target="#contactModal">Contact</a>
+                    </li>
+                </ul>
+                <input id="keyword" name="keyword" type="text">
+                <ul class="nav navbar-nav navbar-right">
 
-            <ul class="nav navbar-nav navbar-right">
 
 
-      
 
-      
 
-            </ul>
-          </div>
+
+                </ul>
+            </div>
         </div>
-   </nav> 
+    </nav>
 
-<div class="container-fluid" style="height: 91%;width:98%">
-	<div class="row" style="height: 100%;">
-		<div class="col-sm-2" style="height:100%;">
-				<!-- <ul  class="nav nav-pills" ><li class="active border"><a href="#4a" data-toggle="tab">Categories</a></li></ul><div class="tab-content clearfix" style="height:85%;"><div class="tab-pane active taboutline" id="4a"><div class="demo" id="categories"> </div></div></div> -->
+    <div class="container-fluid" style="height: 91%;width:98%">
+        <div class="row" style="height: 100%;">
+            <div class="col-sm-2" style="height:100%;">
+                <!-- <ul  class="nav nav-pills" ><li class="active border"><a href="#4a" data-toggle="tab">Categories</a></li></ul><div class="tab-content clearfix" style="height:85%;"><div class="tab-pane active taboutline" id="4a"><div class="demo" id="categories"> </div></div></div> -->
                 <div class="tab-content clearfix" style="height:100%;">
                     <div class="tab-pane active taboutline" id="4a">
                         <div class="demo" id="categories">
-                            
+
                         </div>
                     </div>
                 </div>
-				<!--
+                <!--
                                 <ul  class="nav nav-pills" >
                                         <li class="active border">
                                                 <a href="#4a" data-toggle="tab">Themes</a>
@@ -257,7 +304,7 @@ li.border {
                                 </div>
 				-->
 
-				<!--
+                <!--
 				<ul  class="nav nav-pills" >
 					<li class="active border">
         					<a  href="#1a" data-toggle="tab">Folders</a>
@@ -280,127 +327,134 @@ li.border {
 
 
 
-		</div>
-    		<div class="col-sm-10" style="height: 100%;">
-      			<div class="row" style="height: 57%;">
-      				<div id="map" class="map" style="height: 100%; "></div>
-				<!-- <div id="info">&nbsp;</div> -->
-      			</div>
-                  <span>Showing top 15 results</span>
-                  <span id="hovername"></span>
-                        <!-- <hr> -->
-
-
-      			<div class="row" id="resultsouter" style=" border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
-        			<div id="results" style="height: 100%;"></div>
+            </div>
+            <div class="col-sm-10" style="height: 100%;">
+                <div class="row" style="height: 57%;">
+                    <div id="map" class="map" style="height: 100%; "></div>
+                    <div id="panel">
+                        <button id="SpatialButton" class="btn btn-primary">Spatial Search</button>
+                    </div>
+                    <!-- <div id="info">&nbsp;</div> -->
                 </div>
-            
-			<div class="row" style="height: 4%;text-align:center;">
-				<ul id="pagination-gstore" class="pagination-sm"></ul>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- -->
+                <span>Showing top 15 results</span>
+                <span id="hovername"></span>
+                <!-- <hr> -->
 
 
+                <div class="row" id="resultsouter" style=" border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
+                    <div id="results" style="height: 100%;display:none;"></div>
+                    <div id="resultsoverlay" class="results-overlay"></div>
+                </div>
 
-  <!-- Modal -->
-
-  <div class="modal fade" id="EditAboutModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">About the rgis project.</h4>
+                <div class="row" style="height: 4%;text-align:center;">
+                    <ul id="pagination-gstore" class="pagination-sm"></ul>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-<form>
-
-<textarea rows="20" cols="65" id="abouttextform" form="usrform"></textarea>
-
-</form> 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="saveabout()" data-dismiss="modal">Save</button>
-        </div>
-      </div>
-      
     </div>
-  </div>
+    <!-- -->
 
-  <div class="modal fade" id="aboutModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">About the rgis project.</h4>
+
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="EditAboutModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About the rgis project.</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <textarea rows="20" cols="65" id="abouttextform" form="usrform"></textarea>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="saveabout()" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+
         </div>
-        <div class="modal-body">
-          <p id="abouttext"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
- 
-       </div>
-      </div>
-      
     </div>
-  </div>
 
-  <div class="modal fade" id="EditContactModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Contact info for rgis </h4>
-        </div>
-        <div class="modal-body">
-		<form>
-		Phone: <input type="text" id="phoneform" ></input><br>
-		E-Mail: <input type="text" id="emailform" ><br>
-		</form>
-        </div>
-        <div class="modal-footer">
-           <button type="button" class="btn btn-default" onclick="savecontact()" data-dismiss="modal">Save</button>
-        </div>
-      </div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About the rgis project.</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="abouttext"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 
+    <div class="modal fade" id="EditContactModal" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Contact info for rgis </h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        Phone:
+                        <input type="text" id="phoneform"></input>
+                        <br> E-Mail:
+                        <input type="text" id="emailform">
+                        <br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="savecontact()" data-dismiss="modal">Save</button>
+                </div>
+            </div>
 
-  <div class="modal fade" id="contactModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Contact info for rgis </h4>
         </div>
-        <div class="modal-body">
-          <p id="contactphone"></p>
-          <p id="contactemail"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	  
-        </div>
-      </div>
-
     </div>
-  </div>
 
 
-<!-- -->
+
+    <div class="modal fade" id="contactModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Contact info for rgis </h4>
+                </div>
+                <div class="modal-body">
+                    <p id="contactphone"></p>
+                    <p id="contactemail"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- -->
 </body>
 
 
@@ -454,17 +508,27 @@ li.border {
     							{{/each}}
   						{{/equal}}
 					{{/each}}
-				{{/each}}
+                {{/each}}
+                {{#each metadata}}
+                {{#each this}}
+                     {{#equal @key "FGDC-STD-012-2002"}}
+                           {{#each this}}
+                                       <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300,centerscreen=true'); return false;">{{@key}}</a>
+                           {{/each}}
+                     {{/equal}}
+               {{/each}}
+           {{/each}}
 			</span>
             <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300'); return false;">{{@key}}</a>
 			<span>
+                {{#checklength services 0}}
 				Services: 
 				{{#each services}}
 					{{#each this}}
 						<a href="{{this}}">{{@key}}</a>
 					{{/each}}
 				{{/each}}
-				
+				{{/checklength}}
 			</span>
 		</div>
         </div>
@@ -503,164 +567,230 @@ li.border {
 
 
 <script>
-title=""
-keyword=""
-author=""
-$('#title').bind('input', function() {
- window.title=$(this).val()
- appendsearch();
-});
-
-
-$('#keyword').bind('input', function() {
-
-    window.keyword=$(this).val()
-    appendsearch();
-});
-
-$('#author').bind('input', function() {
-
-    window.author=$(this).val()
-    appendsearch();
-
-});
-
-
-function appendsearch() {
-appendsearchstr=""
- if (window.title !=""){ 
-
-        appendsearchstr=appendsearchstr+"&title="+window.title;
- }
- if (window.keyword !=""){ 
-        appendsearchstr=appendsearchstr+"&keywords="+window.keyword;
- }
- if (window.author !=""){ 
-        appendsearchstr=appendsearchstr+"&author="+window.author;
- }
-
-Searcher(window.searchurl + appendsearchstr)
-
-
-
-}
-
-var searchurl=""
-webconfig = "{\"contactemail\": \"clearinghouse@edac.unm.edu\", \"abouttitle\": \"About RGIS\", \"abouttext\": \"Program and Mission Earth Data Analysis Center (EDAC) at The University of New Mexico (UNM) develops, manages, and enhances the New Mexico Resource Geographic Information System (RGIS) Program and Clearinghouse. Nationally, NM RGIS is among the largest of state-based programs for digital geospatial data and information and continues to add to its data offerings, services, and technology. The RGIS Program mission is to develop and expand geographic information and use of GIS technology, creating a comprehensive GIS resource for state and local governments, educational institutions, nonprofit organizations, and private businesses; to promote geospatial information and GIS technology as primary analytical tools for decision makers and researchers; and to provide a central Clearinghouse to avoid duplication and improve information transfer efficiency. As a repository for digital geospatial data acquired from local and national public agencies and data created expressly for RGIS, the clearinghouse serves as a major hub in New Mexico\\u2019s network for inter-agency and intergovernmental coordination, data sharing, information transfer, and electronic communication. Data sets available for download include political and administrative boundaries, place names and locations, census data (current and historical), 30 years of digital orthophotography, 80 years of historic aerial photography, satellite imagery, elevation data, transportation data, wildfire boundaries and natural resource data.\", \"contactphone\": \"(505) 277-3622\", \"sidebarlayout\": \"themes\"}";
-//console.log(webconfig)
-configobj = JSON.parse(webconfig);
-//console.log(configobj.abouttext);
-document.getElementById("abouttext").innerHTML = configobj.abouttext
-document.getElementById("abouttextform").innerHTML = configobj.abouttext
-document.getElementById("contactphone").innerHTML = "Phone: "+configobj.contactphone
-document.getElementById("contactemail").innerHTML = "E-mail: "+configobj.contactemail
-document.getElementById("phoneform").value = configobj.contactphone
-document.getElementById("emailform").value = configobj.contactemail
 
 
 
 
 
+    title = ""
+    keyword = ""
+    author = ""
+    bbox=""
+    theme=""
+    subtheme=""
+    groupname=""
+    
+    // $('#title').bind('input', function () {
+    //     window.title = $(this).val()
+    //     appendsearch();
+    // });
 
-function bounce(t) {
-  var s = 7.5625, p = 2.75, l;
-  if (t < (1 / p)) {
-    l = s * t * t;
-  } else {
-    if (t < (2 / p)) {
-      t -= (1.5 / p);
-      l = s * t * t + 0.75;
-    } else {
-      if (t < (2.5 / p)) {
-        t -= (2.25 / p);
-        l = s * t * t + 0.9375;
-      } else {
-        t -= (2.625 / p);
-        l = s * t * t + 0.984375;
-      }
+
+//variable used to wait until user stops typing
+var typingTimer;                //timer identifier
+var doneTypingInterval = 500;
+
+//get keywords, and wait for user to stop typing.
+
+
+//on keyup, start the countdown
+$('#keyword').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#keyword').val()) {
+        typingTimer = setTimeout(searchKeyword, doneTypingInterval);
     }
-  }
-  return l;
+});
+
+$('#title').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#title').val()) {
+        typingTimer = setTimeout(searchTitle, doneTypingInterval);
+    }
+});
+
+function searchKeyword () {
+
+    window.keyword = $("#keyword").val()
+    appendsearch();
+
+}
+function searchTitle () {
+
+window.title = $("#title").val()
+appendsearch();
+
 }
 
+    // $('#keyword').bind('input', function () {
+       
+    
+
+    //     window.keyword = $(this).val()
+    //     appendsearch();
+    // });
+
+    // $('#author').bind('input', function () {
+
+    //     window.author = $(this).val()
+    //     appendsearch();
+
+    // });
 
 
-function Searcher(url){
-            console.log(url)
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (data) {
-                	var totalPages = data.total;
-                    if(totalPages>15){
-                	    $('#pagination-gstore').twbsPagination('destroy');
-                	    $('#pagination-gstore').twbsPagination({
-                        	totalPages: totalPages/15,
-                        	visiblePages: 10,
-                        	onPageClick: function (event, page) {
-                                	offsetnum=page*15
-                                	offsetnum=offsetnum-15		
-					                newurl=url+"&offset="+offsetnum
-					//console.log(newurl)
-					                $.ajax({
-                				        url: newurl,
-                				        type: 'GET',
-                				        success: function (data) {
+    function appendsearch() {
+        appendsearchstr = ""
+        if (window.theme != "") {
+        appendsearchstr = appendsearchstr + "&theme=" + window.theme;
+        }
+        if (window.subtheme != "") {
+        appendsearchstr = appendsearchstr + "&subtheme=" + window.subtheme;
+        }
+        if (window.groupname != "") {
+        appendsearchstr = appendsearchstr + "&groupname=" + window.groupname;
+        }
+        if (window.bbox != "") {
+
+        appendsearchstr = appendsearchstr + "&box=" + window.bbox;
+        }
+
+        if (window.title != "") {
+
+            appendsearchstr = appendsearchstr + "&title=" + window.title;
+        }
+        if (window.keyword != "") {
+            appendsearchstr = appendsearchstr + "&keywords=" + window.keyword;
+        }
+        if (window.author != "") {
+            appendsearchstr = appendsearchstr + "&author=" + window.author;
+        }
+
+        Searcher(window.searchurl + appendsearchstr)
 
 
-                    newFeatures=[]
-                    for (var i = 0; i < data.results.length; i++){
-                        currentBox=data.results[i].spatial.bbox
-                        currentFeature = {
-                        "type": "Feature",
-                        "id": data.results[i].uuid,
-                        "properties": {
-                            "name": data.results[i].description,
-                            "id": data.results[i].uuid,
-                        },
-                        "geometry": {
-                            "type": "Polygon",
-                            
-                            "coordinates":[[
-                                [
-                                    currentBox[0],
-                                    currentBox[1]
-                                ],
-                                [
-                                    currentBox[2],
-                                    currentBox[1]
-                                ],
-                                [
-                                    currentBox[2],
-                                    currentBox[3]
-                                ],
-                                [
-                                    currentBox[0],
-                                    currentBox[3]
-                                ]
-                                ]]
+
+    }
+
+    var searchurl = ""
+    webconfig = "{\"contactemail\": \"clearinghouse@edac.unm.edu\", \"abouttitle\": \"About RGIS\", \"abouttext\": \"Program and Mission Earth Data Analysis Center (EDAC) at The University of New Mexico (UNM) develops, manages, and enhances the New Mexico Resource Geographic Information System (RGIS) Program and Clearinghouse. Nationally, NM RGIS is among the largest of state-based programs for digital geospatial data and information and continues to add to its data offerings, services, and technology. The RGIS Program mission is to develop and expand geographic information and use of GIS technology, creating a comprehensive GIS resource for state and local governments, educational institutions, nonprofit organizations, and private businesses; to promote geospatial information and GIS technology as primary analytical tools for decision makers and researchers; and to provide a central Clearinghouse to avoid duplication and improve information transfer efficiency. As a repository for digital geospatial data acquired from local and national public agencies and data created expressly for RGIS, the clearinghouse serves as a major hub in New Mexico\\u2019s network for inter-agency and intergovernmental coordination, data sharing, information transfer, and electronic communication. Data sets available for download include political and administrative boundaries, place names and locations, census data (current and historical), 30 years of digital orthophotography, 80 years of historic aerial photography, satellite imagery, elevation data, transportation data, wildfire boundaries and natural resource data.\", \"contactphone\": \"(505) 277-3622\", \"sidebarlayout\": \"themes\"}";
+    //console.log(webconfig)
+    configobj = JSON.parse(webconfig);
+    //console.log(configobj.abouttext);
+    document.getElementById("abouttext").innerHTML = configobj.abouttext
+    document.getElementById("abouttextform").innerHTML = configobj.abouttext
+    document.getElementById("contactphone").innerHTML = "Phone: " + configobj.contactphone
+    document.getElementById("contactemail").innerHTML = "E-mail: " + configobj.contactemail
+    document.getElementById("phoneform").value = configobj.contactphone
+    document.getElementById("emailform").value = configobj.contactemail
+
+
+
+
+
+
+    function bounce(t) {
+        var s = 7.5625, p = 2.75, l;
+        if (t < (1 / p)) {
+            l = s * t * t;
+        } else {
+            if (t < (2 / p)) {
+                t -= (1.5 / p);
+                l = s * t * t + 0.75;
+            } else {
+                if (t < (2.5 / p)) {
+                    t -= (2.25 / p);
+                    l = s * t * t + 0.9375;
+                } else {
+                    t -= (2.625 / p);
+                    l = s * t * t + 0.984375;
+                }
+            }
+        }
+        return l;
+    }
+
+
+
+    function Searcher(url) {
+        $("#resultsoverlay").fadeIn();
+        $("#results").fadeOut();
+        console.log(url)
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                var totalPages = data.total;
+                if (totalPages > 15) {
+                    $('#pagination-gstore').twbsPagination('destroy');
+                    $('#pagination-gstore').twbsPagination({
+                        totalPages: totalPages / 15,
+                        visiblePages: 10,
+                        onPageClick: function (event, page) {
+                            offsetnum = page * 15
+                            offsetnum = offsetnum - 15
+                            newurl = url + "&offset=" + offsetnum
+                            //console.log(newurl)
+                            $.ajax({
+                                url: newurl,
+                                type: 'GET',
+                                success: function (data) {
+
+
+                                    newFeatures = []
+                                    for (var i = 0; i < data.results.length; i++) {
+                                        currentBox = data.results[i].spatial.bbox
+                                        currentFeature = {
+                                            "type": "Feature",
+                                            "id": data.results[i].uuid,
+                                            "properties": {
+                                                "name": data.results[i].description,
+                                                "id": data.results[i].uuid,
+                                            },
+                                            "geometry": {
+                                                "type": "Polygon",
+
+                                                "coordinates": [[
+                                                    [
+                                                        currentBox[0],
+                                                        currentBox[1]
+                                                    ],
+                                                    [
+                                                        currentBox[2],
+                                                        currentBox[1]
+                                                    ],
+                                                    [
+                                                        currentBox[2],
+                                                        currentBox[3]
+                                                    ],
+                                                    [
+                                                        currentBox[0],
+                                                        currentBox[3]
+                                                    ]
+                                                ]]
+                                            }
+                                        }
+                                        //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
+                                        newFeatures.push(currentFeature)
+                                    }
+                                    geojsonObject.features = newFeatures
+                                    console.log(geojsonObject)
+                                    var vectorSource = new ol.source.Vector({
+                                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+                                    });
+                                    vectorLayer.setSource(vectorSource)
+
+
+
+
+                                    html = template(data.results);
+                                    $('#results').html(html);
+                                    $("#resultsoverlay").fadeOut();
+                                    $("#results").fadeIn();
+                                    
+                                    $('#page-content').text('Page ' + page);
+                                },
+                            });
                         }
-                        }
-                    //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
-                        newFeatures.push(currentFeature)             
-                    }
-                    geojsonObject.features=newFeatures
-                    console.log(geojsonObject)
-                    var vectorSource = new ol.source.Vector({
-                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
                     });
-                    vectorLayer.setSource(vectorSource)
-
-
-
-
-							                html = template(data.results);
-							                $('#results').html(html);
-                                			$('#page-content').text('Page ' + page);
-						                },
-					                });
-                        	}
-                	    });
                     html = template(data.results);
                     // console.log(data.results)
 
@@ -669,94 +799,96 @@ function Searcher(url){
 
 
 
-                    newFeatures=[]
-                    for (var i = 0; i < data.results.length; i++){
-                        currentBox=data.results[i].spatial.bbox
+                    newFeatures = []
+                    for (var i = 0; i < data.results.length; i++) {
+                        currentBox = data.results[i].spatial.bbox
                         currentFeature = {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Polygon",
-                            
-                            "coordinates":[[
-                                [
-                                    currentBox[0],
-                                    currentBox[1]
-                                ],
-                                [
-                                    currentBox[2],
-                                    currentBox[1]
-                                ],
-                                [
-                                    currentBox[2],
-                                    currentBox[3]
-                                ],
-                                [
-                                    currentBox[0],
-                                    currentBox[3]
-                                ]
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Polygon",
+
+                                "coordinates": [[
+                                    [
+                                        currentBox[0],
+                                        currentBox[1]
+                                    ],
+                                    [
+                                        currentBox[2],
+                                        currentBox[1]
+                                    ],
+                                    [
+                                        currentBox[2],
+                                        currentBox[3]
+                                    ],
+                                    [
+                                        currentBox[0],
+                                        currentBox[3]
+                                    ]
                                 ]]
+                            }
                         }
-                        }
-                    //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
-                        newFeatures.push(currentFeature)             
+                        //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
+                        newFeatures.push(currentFeature)
                     }
-                    geojsonObject.features=newFeatures
+                    geojsonObject.features = newFeatures
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
                     });
                     vectorLayer.setSource(vectorSource)
                     vectorLayer.setStyle(styleFunction)
-                	$('#results').html(html);
+                    $('#results').html(html);
 
 
 
 
-		}else if (totalPages>0){
+                } else if (totalPages > 0) {
 
-                        $('#pagination-gstore').twbsPagination('destroy');
-                        $('#pagination-gstore').twbsPagination({
-                                totalPages: 1,
-                                visiblePages: 1,
-                                onPageClick: function (event, page) {
-                                        offsetnum=0
-                                        newurl=url+"&offset="+offsetnum
-                                        //console.log(newurl)
-                                        $.ajax({
-                                                url: newurl,
-                                                type: 'GET',
-                                                success: function (data) {
-                                                //console.log(data)
-                                                        html = template(data.results);
-                                                        //console.log(html)
-                                                        $('#results').html(html);
-                                                        $('#page-content').text('Page ' + page);
-                                                },
-                                        });
-                                }
-                        });
-                        html = template(data.results);
-                        $('#results').html(html);
-
-		
-		}else{
-			$('#pagination-gstore').twbsPagination('destroy');
-			html='<div class="row lineunderrow"><div class="col-md-12">No Datasets found</div></div>'
-                        $('#results').html(html);
-
-		};
+                    $('#pagination-gstore').twbsPagination('destroy');
+                    $('#pagination-gstore').twbsPagination({
+                        totalPages: 1,
+                        visiblePages: 1,
+                        onPageClick: function (event, page) {
+                            offsetnum = 0
+                            newurl = url + "&offset=" + offsetnum
+                            //console.log(newurl)
+                            $.ajax({
+                                url: newurl,
+                                type: 'GET',
+                                success: function (data) {
+                                    //console.log(data)
+                                    html = template(data.results);
+                                    //console.log(html)
+                                    $('#results').html(html);
+                                    $('#page-content').text('Page ' + page);
+                                },
+                            });
+                        }
+                    });
+                    html = template(data.results);
+                    $('#results').html(html);
 
 
-                },
-                error: function (data) {
-                   console.log(data)
-                }
+                } else {
+                    $('#pagination-gstore').twbsPagination('destroy');
+                    html = '<div class="row lineunderrow"><div class="col-md-12">No Datasets found</div></div>'
+                    $('#results').html(html);
+                    $("#resultsoverlay").fadeOut();
+                    $("#results").fadeIn();
 
-            });
+                };
+
+
+            },
+            error: function (data) {
+                console.log(data)
+            }
+
+        });
 
 
 
 
-}
+    }
 
     $('#pagination-gstore').twbsPagination({
 
@@ -770,394 +902,551 @@ function Searcher(url){
     });
 
 
-Handlebars.registerHelper('escape', function(variable) {
-   var lol=variable.replace(/(['"])/g, '\\$1');
-   return lol.replace(/([#])/g, '\\$1');
-});
-
-
-if (!Array.prototype.includes) {
-  Object.defineProperty(Array.prototype, "includes", {
-    enumerable: false,
-    value: function(obj) {
-        var newArr = this.filter(function(el) {
-          return el == obj;
-        });
-        return newArr.length > 0;
-      }
-  });
-}
-
-
-if (!String.prototype.includes) {
-  String.prototype.includes = function(search, start) {
-    'use strict';
-    if (typeof start !== 'number') {
-      start = 0;
-    }
-
-    if (start + search.length > this.length) {
-      return false;
-    } else {
-      return this.indexOf(search, start) !== -1;
-    }
-  };
-}
-
-
-	var layerNames = [];
-
-	function zoomto(uuid){
-
-	url="https://gstoredev.unm.edu/apps/rgis/search/datasets.json?uuid="+uuid
-	
-	
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (data) {
-		      bbox=data.results["0"].spatial.bbox;
-		      minx=bbox[0]
-		      miny=bbox[1]
-		      maxx=bbox[2]
-		      maxy=bbox[3]
-                      minxy=[minx,miny]
-		      maxxy=[maxx,maxy]
-		      toProjection="EPSG:4326"
-		      fromProjection="EPSG:4326"//+data.results["0"].spatial.epsg
-
-
-
-		var animationOptions = {
-  			duration: 2000
-		};
-
-			map.getView().fit(bbox, animationOptions);
-
-                },
-                error: function (data) {
-                    alert('Is this it???');
-                }
-
-            });
-
-		
-	}
-
-
-
-
-	function addtomap(id, name, title) {
-		if (name.match(/^\d/)) {
-			name="g_"+name
-                  
-		}
-		found=layerNames.includes(name);
-		if (!found){
-			
-   			var newlayer=new ol.layer.Tile({
-          			title: title, //name+"("+title+")",
-          			source: new ol.source.TileWMS({
-            				url: 'https://gstoredev.unm.edu/apps/rgis/datasets/'+id+'/services/ogc/wms',
-            				params: {'LAYERS': name, 'TILED': true, 'VERSION':'1.1.1'},
-            				serverType: 'mapserver',
-            				//tileGrid: tileGrid
-          			})
-        		})
-    			layerNames.push(name)
-    			map.addLayer(newlayer);
-		};
-	}	
-
-
-
-	Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
-    		if (arguments.length < 3)
-        		throw new Error("Handlebars Helper equal needs 2 parameters");
-    		if( lvalue!=rvalue ) {
-        		return options.inverse(this);
-    		} else {
-        		return options.fn(this);
-    		}
-	});
-
-
-	jsontest={}
-	//console.log(jsontest)
-	results=jsontest.results
-	//console.log(results)
-	var template;
-	var html
-
-	$(function() {
-		var source = $("#datasets-template").html();
-		template = Handlebars.compile(source);
-		html = template(results);
-		$('#results').html(html);
-	});
-
-//folders jstree
-	$('#folders').jstree({
-	    'core': {
-	        "check_callback": true,
-	        'data': {
-	            "url": "https://gstoredev.unm.edu/apps/rgis/folders.json",
-	            "dataType": "json"
-	        }
-	    },
-	    "plugins":[]
-	}).on('select_node.jstree', function (e, ndata) {
-	    //console.log(map)
-	    var folder = $(this).jstree(true).get_node(ndata.node);
-	    window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?folders=" + folder.id;
-	    $.ajax({
-	        url: window.searchurl,
-	        type: 'GET',
-	        success: function (data) {
-                    //console.log("#############")
-	            //console.log(data);
-                    //console.log("#############")
-	            //console.log(data.results.length);
-                    //console.log("#############")
-		    //console.log(data.total)
-
-	            html = template(data.results);
-	            $('#results').html(html);
-	        },
-	        error: function (data) {
-	            alert('lol whatever');
-	        }
-	    });
-	}).on('loaded.jstree', function (e, ndata) {
-	    window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?";
-            $.ajax({
-                url: window.searchurl,
-                type: 'GET',
-                success: function (data) {
-                    //console.log(data);
-                    //console.log(data.results.length);
-                    html = template(data.results);
-                    $('#results').html(html);
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-
-            });
-        }).on('open_node.jstree', function (e, ndata) {
-             ndata.instance.set_icon(ndata.node, 'images/jstree/bluefolder-open.png')
-        }).on('close_node.jstree', function (e, ndata) {
-		ndata.instance.set_icon(ndata.node, true);
-        });
-//categories jstree
-	$('#categories').jstree({
-            'core': {
-                "check_callback": true,
-                'data': {
-                    "url": "https://gstoredev.unm.edu/apps/rgis/search/categorytree.json",
-                    "dataType": "json"
-                }
-            },
-            "plugins":[]
-        }).on('select_node.jstree', function (e, ndata) {
-            //console.log(map)
-	    var folder = $(this).jstree(true).get_node(ndata.node);
-	    //console.log(folder.id)
-            var categoryarray = folder.id.split("-^-");
-	    //console.log(categoryarray);
-	    var searchstring=""
-	    if (categoryarray.length===1){
-	    	searchstring="theme="+categoryarray[0]
-	    } else if(categoryarray.length===2){
-		searchstring="theme="+categoryarray[0]+"&subtheme="+categoryarray[1]
-	    }else if(categoryarray.length===3){
-                searchstring="theme="+categoryarray[0]+"&subtheme="+categoryarray[1]+"&groupname="+categoryarray[2] + "&sort=description"
-	    };
-	    //console.log(searchstring)
-            	window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?" + searchstring;
-                //console.log(window.searchurl)
-		Searcher(window.searchurl);
-        }).on('loaded.jstree', function (e, ndata) {
-               window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?limt=15";
-		Searcher(window.searchurl)
-        }).on('open_node.jstree', function (e, ndata) {
-             ndata.instance.set_icon(ndata.node, 'images/jstree/bluefolder-open.png')
-        }).on('close_node.jstree', function (e, ndata) {
-                ndata.instance.set_icon(ndata.node, true);
-        });
-
-//var googleLayer = new olgm.layer.Google();
-
-
-var geojsonObject = {
-    "type": "FeatureCollection",
-    "crs": {
-        "type": "name",
-        "properties": {"name": "EPSG:4326"}
-    },
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [[
-                    [
-                        0,
-                        0
-                    ],
-                    [
-                        0,
-                        0
-                    ],
-                    [
-                        0,
-                        0
-                    ],
-                                      [
-                        0,
-                        0
-                    ]
-                ]]
-            }
-        }
-    ]
-};
-
-var vectorSource = new ol.source.Vector({
-  features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
-});
-console.log(vectorSource)
-
-
-var styles = {
-  'Polygon': new ol.style.Style(
-    {
-    fill: new ol.style.Fill({
-      color: 'rgba(0, 0, 0, 0.0001)'
-    }),
-      
-    stroke: new ol.style.Stroke({
-      color: 'rgba(1, 151, 186)',
-
-      width: 1
-    })
-
-  })
-};
-
-var vectorLayer = new ol.layer.Vector({
-  source: vectorSource,
-  style: styleFunction
-  
-});
-
-var styleFunction = function(feature) {
-  return styles[feature.getGeometry().getType()];
-};
-
-
-        var layers = [
-            new ol.layer.Group({
-                'title': 'Base maps',
-                layers: [
-                    new ol.layer.Group({
-                        title: 'Watercolor',
-                        type: 'base',
-                        combine: true,
-                        visible: false,
-                        layers: [
-                            new ol.layer.Tile({
-                                source: new ol.source.Stamen({
-                                    layer: 'watercolor'
-                                })
-                            }),
-                            new ol.layer.Tile({
-                                source: new ol.source.Stamen({
-                                    layer: 'terrain-labels'
-                                })
-                            })
-                        ]
-                    }),
-                    
-                    new ol.layer.Tile({
-                        title: 'OSM',
-                        type: 'base',
-                        visible: true,
-                        source: new ol.source.OSM()
-                    }),
-		    new ol.layer.Tile({
-			title: 'Bing',
-      			type: 'base',
-                        visible: false,
-      			source: new ol.source.BingMaps({
-        			key: 'Ahk8GEcI1V0I7ArMAJpMG6eUedGOsN_EFo9R5kaJcNxjpZYT98KrCPQxD-5CN0-p',
-        			imagerySet: 'Road'
-      		    	})
-            }),
-            vectorLayer	  
-                ]
-            })
-
-        ];
-
-
-      var view = new ol.View({
-          projection: 'EPSG:4326',
-          center: [-106.182861, 34.25],
-          zoom: 7
-        });
-
-      var map = new ol.Map({
-        layers: layers,
-        target: 'map',
-        view: view
-      });
-
-
-// select interaction working on "pointermove"
-var selectPointerMove = new ol.interaction.Select({
-  condition: ol.events.condition.pointerMove
-});
-
- selecteduuid="lol"
-
-    map.addInteraction(selectPointerMove);
-    selectPointerMove.on('select', function(e) {
-      if (e.selected[0]!=undefined){
-           //e.selected[0].get('id')
-      //  $("#"+e.selected[0].get('id')).prependTo("#ImportantNumbers");
-        var elmnt = document.getElementById(e.selected[0].get('id'));
-        elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        document.getElementById('hovername').innerHTML = e.selected[0].get('name')
-        $( "#"+e.selected[0].get('id') ).addClass( "hovered" );
-        selecteduuidstr="#"+selecteduuid
-        console.log(selecteduuidstr)
-        $( selecteduuidstr ).removeClass( "hovered" );
-
-        selecteduuid=e.selected[0].get('id')
-    }else{
-        document.getElementById('hovername').innerHTML =""
-    }
-    
-    
-    
+    Handlebars.registerHelper('escape', function (variable) {
+        var lol = variable.replace(/(['"])/g, '\\$1');
+        return lol.replace(/([#])/g, '\\$1');
     });
 
 
-      new ol.layer.Vector({title: 'boxes'})
+    if (!Array.prototype.includes) {
+        Object.defineProperty(Array.prototype, "includes", {
+            enumerable: false,
+            value: function (obj) {
+                var newArr = this.filter(function (el) {
+                    return el == obj;
+                });
+                return newArr.length > 0;
+            }
+        });
+    }
 
-    	var layerSwitcher = new ol.control.LayerSwitcher({
-        	tipLabel: 'Legend' // Optional label for button
-    	});
 
-    	map.addControl(layerSwitcher);
+    if (!String.prototype.includes) {
+        String.prototype.includes = function (search, start) {
+            'use strict';
+            if (typeof start !== 'number') {
+                start = 0;
+            }
+
+            if (start + search.length > this.length) {
+                return false;
+            } else {
+                return this.indexOf(search, start) !== -1;
+            }
+        };
+    }
+
+
+    var layerNames = [];
+
+    function zoomto(uuid) {
+
+        url = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?uuid=" + uuid
+
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                bbox = data.results["0"].spatial.bbox;
+                minx = bbox[0]
+                miny = bbox[1]
+                maxx = bbox[2]
+                maxy = bbox[3]
+                minxy = [minx, miny]
+                maxxy = [maxx, maxy]
+                toProjection = "EPSG:4326"
+                fromProjection = "EPSG:4326"//+data.results["0"].spatial.epsg
+
+
+
+                var animationOptions = {
+                    duration: 2000
+                };
+
+                map.getView().fit(bbox, animationOptions);
+
+            },
+            error: function (data) {
+                alert('Is this it???');
+            }
+
+        });
+
+
+    }
 
 
 
 
+    function addtomap(id, name, title) {
+        if (name.match(/^\d/)) {
+            name = "g_" + name
+
+        }
+        found = layerNames.includes(name);
+        if (!found) {
+
+            var newlayer = new ol.layer.Tile({
+                title: title, //name+"("+title+")",
+                source: new ol.source.TileWMS({
+                    url: 'https://gstoredev.unm.edu/apps/rgis/datasets/' + id + '/services/ogc/wms',
+                    params: { 'LAYERS': name, 'TILED': true, 'VERSION': '1.1.1' },
+                    serverType: 'mapserver',
+                    //tileGrid: tileGrid
+                })
+            })
+            layerNames.push(name)
+            map.addLayer(newlayer);
+        };
+    }
+
+
+
+    Handlebars.registerHelper('equal', function (lvalue, rvalue, options) {
+        if (arguments.length < 3)
+            throw new Error("Handlebars Helper equal needs 2 parameters");
+        if (lvalue != rvalue) {
+            return options.inverse(this);
+        } else {
+            return options.fn(this);
+        }
+    });
+
+Handlebars.registerHelper('checklength', function (v1, v2, options) {
+'use strict';
+   if (v1.length>v2) {
+     return options.fn(this);
+  }
+  return options.inverse(this);
+});
+
+    jsontest = {}
+    //console.log(jsontest)
+    results = jsontest.results
+    //console.log(results)
+    var template;
+    var html
+
+    $(function () {
+        var source = $("#datasets-template").html();
+        template = Handlebars.compile(source);
+        html = template(results);
+        $('#results').html(html);
+    });
+
+    //folders jstree
+    $('#folders').jstree({
+        'core': {
+            "check_callback": true,
+            'data': {
+                "url": "https://gstoredev.unm.edu/apps/rgis/folders.json",
+                "dataType": "json"
+            }
+        },
+        "plugins": []
+    }).on('select_node.jstree', function (e, ndata) {
+        //console.log(map)
+        var folder = $(this).jstree(true).get_node(ndata.node);
+        window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?folders=" + folder.id;
+        $.ajax({
+            url: window.searchurl,
+            type: 'GET',
+            success: function (data) {
+                //console.log("#############")
+                //console.log(data);
+                //console.log("#############")
+                //console.log(data.results.length);
+                //console.log("#############")
+                //console.log(data.total)
+
+                html = template(data.results);
+                $('#results').html(html);
+            },
+            error: function (data) {
+                alert('lol whatever');
+            }
+        });
+    }).on('loaded.jstree', function (e, ndata) {
+        window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?";
+        $.ajax({
+            url: window.searchurl,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                //console.log(data.results.length);
+                html = template(data.results);
+                $('#results').html(html);
+            },
+            error: function (data) {
+                console.log(data)
+            }
+
+        });
+    }).on('open_node.jstree', function (e, ndata) {
+        ndata.instance.set_icon(ndata.node, 'images/jstree/bluefolder-open.png')
+    }).on('close_node.jstree', function (e, ndata) {
+        ndata.instance.set_icon(ndata.node, true);
+    });
+    //categories jstree
+    $('#categories').jstree({
+        'core': {
+            "check_callback": true,
+            'data': {
+                "url": "https://gstoredev.unm.edu/apps/rgis/search/categorytree.json",
+                "dataType": "json"
+            }
+        },
+        "plugins": []
+    }).on('select_node.jstree', function (e, ndata) {
+        //console.log(map)
+        var folder = $(this).jstree(true).get_node(ndata.node);
+        //console.log(folder.id)
+        var categoryarray = folder.id.split("-^-");
+        //console.log(categoryarray);
+        var searchstring = ""
+        window.theme=""
+        window.subtheme=""
+        window.groupname=""
+        if (categoryarray.length === 1) {
+            // searchstring = "theme=" + categoryarray[0]
+            window.theme = categoryarray[0]
+            appendsearch();
+        } else if (categoryarray.length === 2) {
+            // searchstring = "theme=" + categoryarray[0] + "&subtheme=" + categoryarray[1]
+            window.subtheme = categoryarray[1]
+            appendsearch();
+        } else if (categoryarray.length === 3) {
+            // searchstring = "theme=" + categoryarray[0] + "&subtheme=" + categoryarray[1] + "&groupname=" + categoryarray[2] + "&sort=description"
+            window.groupname = categoryarray[2]
+            appendsearch();
+        };
+        //console.log(searchstring)
+        //window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?" + searchstring;
+        //console.log(window.searchurl)
+       // Searcher(window.searchurl);
+    }).on('loaded.jstree', function (e, ndata) {
+        window.searchurl = "https://gstoredev.unm.edu/apps/rgis/search/datasets.json?limt=15";
+        Searcher(window.searchurl)
+    }).on('open_node.jstree', function (e, ndata) {
+        ndata.instance.set_icon(ndata.node, 'images/jstree/bluefolder-open.png')
+    }).on('close_node.jstree', function (e, ndata) {
+        ndata.instance.set_icon(ndata.node, true);
+    });
+
+    //var googleLayer = new olgm.layer.Google();
+
+
+    var geojsonObject = {
+        "type": "FeatureCollection",
+        "crs": {
+            "type": "name",
+            "properties": { "name": "EPSG:4326" }
+        },
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ]
+                    ]]
+                }
+            }
+        ]
+    };
+
+    var vectorSource = new ol.source.Vector({
+        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+    });
+    console.log(vectorSource)
+
+
+    var styles = {
+        'Polygon': new ol.style.Style(
+            {
+                fill: new ol.style.Fill({
+                    color: 'rgba(0, 0, 0, 0.0001)'
+                }),
+
+                stroke: new ol.style.Stroke({
+                    color: 'rgba(1, 151, 186)',
+
+                    width: 1
+                })
+
+            })
+    };
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: styleFunction
+
+    });
+
+    var styleFunction = function (feature) {
+        return styles[feature.getGeometry().getType()];
+    };
+
+var drawsource = new ol.source.Vector({wrapX: false});
+
+var drawvector = new ol.layer.Vector({
+  source: drawsource
+});
+
+    var layers = [
+        new ol.layer.Group({
+            'title': 'Base maps',
+            layers: [
+                new ol.layer.Group({
+                    title: 'Watercolor',
+                    type: 'base',
+                    combine: true,
+                    visible: false,
+                    layers: [
+                        new ol.layer.Tile({
+                            source: new ol.source.Stamen({
+                                layer: 'watercolor'
+                            })
+                        }),
+                        new ol.layer.Tile({
+                            source: new ol.source.Stamen({
+                                layer: 'terrain-labels'
+                            })
+                        })
+                    ]
+                }),
+
+                new ol.layer.Tile({
+                    title: 'OSM',
+                    type: 'base',
+                    visible: true,
+                    source: new ol.source.OSM()
+                }),
+                new ol.layer.Tile({
+                    title: 'Bing',
+                    type: 'base',
+                    visible: false,
+                    source: new ol.source.BingMaps({
+                        key: 'Ahk8GEcI1V0I7ArMAJpMG6eUedGOsN_EFo9R5kaJcNxjpZYT98KrCPQxD-5CN0-p',
+                        imagerySet: 'Road'
+                    })
+                }),
+                drawvector,
+                vectorLayer
+            
+            ]
+        })
+
+    ];
+
+
+    var view = new ol.View({
+        projection: 'EPSG:4326',
+        center: [-106.182861, 34.25],
+        zoom: 7
+    });
+
+    //   var controls = new ol.control.defaults({
+    //       attributionOptions: {
+    //         collapsible: false
+    //       }
+    //     }).extend([
+    //       new app.RotateNorthControl()
+    //     ])
+
+
+    var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: view
+    });
+
+    var button = document.createElement('button');
+    button.innerHTML = 'Spatial Search';
+
+    // select interaction working on "pointermove"
+    var selectPointerMove = new ol.interaction.Select({
+        condition: ol.events.condition.pointerMove
+    });
+
+    var element = document.createElement('div');
+    element.appendChild(button);
+    selecteduuid = "lol"
+
+    map.addInteraction(selectPointerMove);
+    selectPointerMove.on('select', function (e) {
+       // console.log(e.selected[0])
+        if (e.selected[0] != undefined) {
+            if (e.selected[0].get('id')!= undefined){
+            //e.selected[0].get('id')
+            //  $("#"+e.selected[0].get('id')).prependTo("#ImportantNumbers");
+            var elmnt = document.getElementById(e.selected[0].get('id'));
+            elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('hovername').innerHTML = e.selected[0].get('name')
+            $("#" + e.selected[0].get('id')).addClass("hovered");
+            selecteduuidstr = "#" + selecteduuid
+            //console.log(selecteduuidstr)
+            $(selecteduuidstr).removeClass("hovered");
+
+            selecteduuid = e.selected[0].get('id')
+        }
+        } else {
+            document.getElementById('hovername').innerHTML = ""
+        }
+
+
+
+    });
+
+
+    new ol.layer.Vector({ title: 'boxes' })
+
+    var layerSwitcher = new ol.control.LayerSwitcher({
+        tipLabel: 'Legend' // Optional label for button
+    });
+
+    map.addControl(layerSwitcher);
+
+
+
+function addInteraction(myInteraction) {
+  var value = myInteraction;
+  if (value !== 'None') {
+    draw = new ol.interaction.Draw({
+      source: drawsource,
+      type: value
+    });
+    map.addInteraction(draw);
+  }
+}
+
+$('#SpatialButton').click(function(event){
+    console.log(event)
+    var feature = event.feature;
+    var features = drawvector.getSource().getFeatures();
+    features.forEach(function(feature) {
+        console.log(feature.getGeometry().getCoordinates());
+        drawvector.getSource().removeFeature(feature);
+    });
+
+  console.log('click');
+  var geojsonObject = {
+        "type": "FeatureCollection",
+        "crs": {
+            "type": "name",
+            "properties": { "name": "EPSG:4326" }
+        },
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ]
+                    ]]
+                }
+            }
+        ]
+    };
+
+
+                                    var vectorSource = new ol.source.Vector({
+                                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+                                    });
+                                    vectorLayer.setSource(vectorSource)
+
+//                                     var source = new ol.source.Vector({wrapX: false});
+
+// var vector = new ol.layer.Vector({
+//   source: source
+// });
+maxPoints = 2;
+      geometryFunction = function(coordinates, geometry) {
+        if (!geometry) {
+          geometry = new ol.geom.Polygon(null);
+        }
+        var start = coordinates[0];
+        var end = coordinates[1];
+        geometry.setCoordinates([
+          [start, [start[0], end[1]], end, [end[0], start[1]], start]
+        ]);
+        return geometry;
+      };
+    tvalue="LineString"
+draw = new ol.interaction.Draw({
+      source: drawsource,
+      type: /** @type {ol.geom.GeometryType} */ (tvalue),
+      geometryFunction: geometryFunction,
+      maxPoints: maxPoints
+    });
+    map.addInteraction(draw);
+
+// addInteraction("Polygon");
+draw.on('drawend', function (event) {
+    console.log(map.getInteractions())
+    map.removeInteraction(draw)
+    
+    var feature = event.feature;
+    var features = drawvector.getSource().getFeatures();
+    //console.log(features)
+    features = features.concat(feature);
+    // features.forEach(function() {
+        //  console.log(this)
+    //  });
+    coords=feature.getGeometry().getCoordinates()
+    newbbox=coords["0"]["0"]["0"]+","+coords["0"]["2"]["1"]+","+coords["0"]["2"]["0"]+","+coords["0"]["0"]["1"]
+    features.forEach(function(feature) {
+        console.log("sd")
+        console.log(feature.getGeometry().getCoordinates())
+       // drawvector.getSource().removeFeature(feature);
+    });
+
+        window.bbox = newbbox
+        appendsearch();
+
+    //drawvector.getSource().removeFeature(feature)
+    //drawsource.clear()
+    //box="box=-110.650433,34.363727,-106.162141,37.319418
+    
+});
+
+
+});
+
+// addInteraction("None");
 
 </script>
 
 
 </html>
-
