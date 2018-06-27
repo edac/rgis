@@ -37,7 +37,7 @@
 
     /* Title */
 
-    .navbar-default .navbar-brand {
+    .navbar-default .navbar-brand .navbar-right {
         color: #777;
 
     }
@@ -61,7 +61,7 @@
 
     /* Link */
 
-    .navbar-default .navbar-nav>li>a {
+    .navbar-default .navbar-nav. >li>a {
         color: #777;
     }
 
@@ -253,16 +253,54 @@
                     <li style="cursor: pointer;">
                         <a data-toggle="modal" data-target="#contactModal">Contact</a>
                     </li>
+                    <li style="padding-top: 11px;color:white; margin-left: 50px;">
+                            Title: <input  style="color:#555" id="title" name="title" type="text">
+                    </li>
+                    <li style="padding-top: 11px;color:white; margin-left: 27px;">
+                            Keywords: <input style="color:#555" id="keyword" name="keyword" type="text">
+                    </li>
+                    <li style="padding-top: 11px;color:white; margin-left: 27px;">
+                            <form id="taxonomyform" style="padding-top: 2px">
+                                    <label class="radio-inline">
+                                      <input id="rasters" type="radio" name="optradio">Rasters
+                                    </label>
+                                    <label class="radio-inline">
+                                      <input id="vectors" type="radio" name="optradio">Vectors
+                                    </label>
+                                    <label class="radio-inline">
+                                      <input id="files" type="radio" name="optradio">Files
+                                    </label>
+                                    <label class="radio-inline">
+                                            <input id="all" type="radio" name="optradio" checked>All
+                                    </label>
+                            </form>
+                    </li>
                 </ul>
-                <input id="keyword" name="keyword" type="text">
-                <ul class="nav navbar-nav navbar-right">
+               <span style="color:white;">
+                <!-- <form id="taxonomyform" style="padding-top: 14px">
+                        <label class="radio-inline">
+                          <input id="rasters" type="radio" name="optradio">Rasters
+                        </label>
+                        <label class="radio-inline">
+                          <input id="vectors" type="radio" name="optradio">Vectors
+                        </label>
+                        <label class="radio-inline">
+                          <input id="files" type="radio" name="optradio">Files
+                        </label>
+                        <label class="radio-inline">
+                                <input id="all" type="radio" name="optradio" checked>All
+                        </label>
+                </form> -->
+               
+<!-- 
+                        Keywords:<input id="keyword" name="keyword" type="text">
+                        Title:<input id="title" name="title" type="text"> -->
+                        </span>
+                        <!-- <ul class="nav navbar-nav navbar-right">
 
 
 
-
-
-
-                </ul>
+                </ul> -->
             </div>
         </div>
     </nav>
@@ -569,9 +607,26 @@
 <script>
 
 
+$( "#taxonomyform" )
+  .change(function (event) {
+      
+    if(event.target.id==="vectors"){
+        window.taxonomy="vector"
+        appendsearch();
+    }else if(event.target.id==="rasters"){
+        window.taxonomy="geoimage"
+        appendsearch();
+    }else if(event.target.id==="files"){
+        window.taxonomy="file"
+        appendsearch();
+    }else if(event.target.id==="all"){
+        window.taxonomy=""
+        appendsearch();
+    }
+    
+  })
 
-
-
+    taxonomy=""
     title = ""
     keyword = ""
     author = ""
@@ -620,7 +675,17 @@ window.title = $("#title").val()
 appendsearch();
 
 }
-
+$('#keyword').bind('input', function () {
+    if($(this).val()==""){
+        window.keyword =""
+        appendsearch();
+    }
+});
+$('#title').bind('input', function () {
+    if($(this).val()==""){
+        window.title =""
+        appendsearch();
+    }
     // $('#keyword').bind('input', function () {
        
     
@@ -634,19 +699,24 @@ appendsearch();
     //     window.author = $(this).val()
     //     appendsearch();
 
-    // });
-
+    });
+showsearchstring=""
 
     function appendsearch() {
+        console.log("appending")
         appendsearchstr = ""
+        showsearchstring="Search: "
         if (window.theme != "") {
         appendsearchstr = appendsearchstr + "&theme=" + window.theme;
+        showsearchstring=showsearchstring+"in /"+window.theme
         }
         if (window.subtheme != "") {
         appendsearchstr = appendsearchstr + "&subtheme=" + window.subtheme;
+        showsearchstring=showsearchstring+"/"+window.subtheme
         }
         if (window.groupname != "") {
         appendsearchstr = appendsearchstr + "&groupname=" + window.groupname;
+        showsearchstring=showsearchstring+"/"+window.groupname+"/"
         }
         if (window.bbox != "") {
 
@@ -654,18 +724,25 @@ appendsearch();
         }
 
         if (window.title != "") {
-
+            showsearchstring=showsearchstring+" title string:"+window.title
             appendsearchstr = appendsearchstr + "&title=" + window.title;
         }
         if (window.keyword != "") {
+            showsearchstring=showsearchstring+", keywords:"+window.keyword
             appendsearchstr = appendsearchstr + "&keywords=" + window.keyword;
         }
         if (window.author != "") {
+            showsearchstring=showsearchstring+", author:"+window.author
             appendsearchstr = appendsearchstr + "&author=" + window.author;
         }
-
+        if (window.taxonomy != "") {
+            showsearchstring=showsearchstring+", taxomomy:"+window.taxonomy
+            appendsearchstr = appendsearchstr + "&taxonomy=" + window.taxonomy;
+            
+        }
+        document.getElementById('hovername').innerHTML = showsearchstring
         Searcher(window.searchurl + appendsearchstr)
-
+        
 
 
     }
@@ -725,10 +802,15 @@ appendsearch();
                         totalPages: totalPages / 15,
                         visiblePages: 10,
                         onPageClick: function (event, page) {
+                            console.log(event)
+                            if (url.includes("offset")){
+                            console.log(page)
                             offsetnum = page * 15
                             offsetnum = offsetnum - 15
                             newurl = url + "&offset=" + offsetnum
                             //console.log(newurl)
+                            $("#resultsoverlay").fadeIn();
+                                    $("#results").fadeOut();
                             $.ajax({
                                 url: newurl,
                                 type: 'GET',
@@ -789,6 +871,15 @@ appendsearch();
                                     $('#page-content').text('Page ' + page);
                                 },
                             });
+                        }else{
+                            
+                            
+                            offsetnum = page * 15
+                            offsetnum = offsetnum - 15
+                            url = url + "&offset=" + offsetnum
+                            $("#resultsoverlay").fadeOut();
+                                    $("#results").fadeIn();  
+                        }
                         }
                     });
                     html = template(data.results);
@@ -804,10 +895,15 @@ appendsearch();
                         currentBox = data.results[i].spatial.bbox
                         currentFeature = {
                             "type": "Feature",
-                            "geometry": {
-                                "type": "Polygon",
+                                            "id": data.results[i].uuid,
+                                            "properties": {
+                                                "name": data.results[i].description,
+                                                "id": data.results[i].uuid,
+                                            },
+                                            "geometry": {
+                                                "type": "Polygon",
 
-                                "coordinates": [[
+                                                "coordinates": [[
                                     [
                                         currentBox[0],
                                         currentBox[1]
@@ -864,11 +960,101 @@ appendsearch();
                             });
                         }
                     });
+
+
+                                        newFeatures = []
+                    for (var i = 0; i < data.results.length; i++) {
+                        currentBox = data.results[i].spatial.bbox
+                        currentFeature = {
+                            "type": "Feature",
+                                            "id": data.results[i].uuid,
+                                            "properties": {
+                                                "name": data.results[i].description,
+                                                "id": data.results[i].uuid,
+                                            },
+                                            "geometry": {
+                                                "type": "Polygon",
+
+                                                "coordinates": [[
+                                    [
+                                        currentBox[0],
+                                        currentBox[1]
+                                    ],
+                                    [
+                                        currentBox[2],
+                                        currentBox[1]
+                                    ],
+                                    [
+                                        currentBox[2],
+                                        currentBox[3]
+                                    ],
+                                    [
+                                        currentBox[0],
+                                        currentBox[3]
+                                    ]
+                                ]]
+                            }
+                        }
+                        //currentFeature={"type":"Feature","geometry":{"type":"Polygon","coordinates":[[currentBox[0],currentBox[1]],[currentBox[2],currentBox[1]],[currentBox[2],currentBox[3]],[currentBox[0],currentBox[3]]]}}
+                        newFeatures.push(currentFeature)
+                    }
+                    geojsonObject.features = newFeatures
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+                    });
+                    vectorLayer.setSource(vectorSource)
+                    vectorLayer.setStyle(styleFunction)
+                    $('#results').html(html);
+
                     html = template(data.results);
                     $('#results').html(html);
+                    $("#resultsoverlay").fadeOut();
+                    $("#results").fadeIn();
 
 
                 } else {
+
+
+
+    var geojsonObject2 = {
+        "type": "FeatureCollection",
+        "crs": {
+            "type": "name",
+            "properties": { "name": "EPSG:4326" }
+        },
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            0,
+                            0
+                        ]
+                    ]]
+                }
+            }
+        ]
+    };
+    var vectorSource = new ol.source.Vector({
+        features: (new ol.format.GeoJSON()).readFeatures(geojsonObject2)
+    });
+
+                        vectorLayer.setSource(vectorSource)
+                    vectorLayer.setStyle(styleFunction)
                     $('#pagination-gstore').twbsPagination('destroy');
                     html = '<div class="row lineunderrow"><div class="col-md-12">No Datasets found</div></div>'
                     $('#results').html(html);
@@ -1101,9 +1287,9 @@ Handlebars.registerHelper('checklength', function (v1, v2, options) {
     }).on('select_node.jstree', function (e, ndata) {
         //console.log(map)
         var folder = $(this).jstree(true).get_node(ndata.node);
-        //console.log(folder.id)
+        console.log(folder.id)
         var categoryarray = folder.id.split("-^-");
-        //console.log(categoryarray);
+        console.log(categoryarray);
         var searchstring = ""
         window.theme=""
         window.subtheme=""
@@ -1114,10 +1300,13 @@ Handlebars.registerHelper('checklength', function (v1, v2, options) {
             appendsearch();
         } else if (categoryarray.length === 2) {
             // searchstring = "theme=" + categoryarray[0] + "&subtheme=" + categoryarray[1]
+            window.theme = categoryarray[0]
             window.subtheme = categoryarray[1]
             appendsearch();
         } else if (categoryarray.length === 3) {
             // searchstring = "theme=" + categoryarray[0] + "&subtheme=" + categoryarray[1] + "&groupname=" + categoryarray[2] + "&sort=description"
+            window.theme = categoryarray[0]
+            window.subtheme = categoryarray[1]
             window.groupname = categoryarray[2]
             appendsearch();
         };
@@ -1291,14 +1480,15 @@ var drawvector = new ol.layer.Vector({
 
     map.addInteraction(selectPointerMove);
     selectPointerMove.on('select', function (e) {
-       // console.log(e.selected[0])
+        console.log(e.selected[0])
         if (e.selected[0] != undefined) {
+            console.log(e.selected[0].get('id'))
             if (e.selected[0].get('id')!= undefined){
-            //e.selected[0].get('id')
+            console.log("okey")
             //  $("#"+e.selected[0].get('id')).prependTo("#ImportantNumbers");
             var elmnt = document.getElementById(e.selected[0].get('id'));
             elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            document.getElementById('hovername').innerHTML = e.selected[0].get('name')
+        //document.getElementById('hovername').innerHTML = e.selected[0].get('name')
             $("#" + e.selected[0].get('id')).addClass("hovered");
             selecteduuidstr = "#" + selecteduuid
             //console.log(selecteduuidstr)
@@ -1307,7 +1497,7 @@ var drawvector = new ol.layer.Vector({
             selecteduuid = e.selected[0].get('id')
         }
         } else {
-            document.getElementById('hovername').innerHTML = ""
+            //document.getElementById('hovername').innerHTML = ""
         }
 
 
