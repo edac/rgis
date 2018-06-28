@@ -552,7 +552,7 @@
             {{#each this}}
             <div class="card lineunderrow" id="a{{uuid}}">
                 
-                    <div class="card-header" id="{{uuid}}">
+                    <div class="card-header" id="{{uuid}}" data-toggle="collapse" data-target="#collapse{{uuid}}" aria-expanded="false" aria-controls="collapse{{uuid}}">
                       <span class="mb-0">                                                 {{#equal taxonomy "geoimage"}}
                             <img class="legend" src="images/raster.png">
                         {{/equal}}
