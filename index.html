@@ -374,7 +374,7 @@
                     </div>
                     <!-- <div id="info">&nbsp;</div> -->
                 </div>
-                <span>Showing top 15 results</span>
+                <span id="showresults"></span>
                 <span id="hovername"></span>
                 <!-- <hr> -->
 
@@ -705,7 +705,7 @@ showsearchstring=""
     function appendsearch() {
         console.log("appending")
         appendsearchstr = ""
-        showsearchstring="Search: "
+        showsearchstring=""
         if (window.theme != "") {
         appendsearchstr = appendsearchstr + "&theme=" + window.theme;
         showsearchstring=showsearchstring+"in /"+window.theme
@@ -736,7 +736,7 @@ showsearchstring=""
             appendsearchstr = appendsearchstr + "&author=" + window.author;
         }
         if (window.taxonomy != "") {
-            showsearchstring=showsearchstring+", taxomomy:"+window.taxonomy
+            showsearchstring=showsearchstring+", taxomomy: raster"
             appendsearchstr = appendsearchstr + "&taxonomy=" + window.taxonomy;
             
         }
@@ -796,6 +796,7 @@ showsearchstring=""
             type: 'GET',
             success: function (data) {
                 var totalPages = data.total;
+                
                 if (totalPages > 15) {
                     $('#pagination-gstore').twbsPagination('destroy');
                     $('#pagination-gstore').twbsPagination({
@@ -865,6 +866,8 @@ showsearchstring=""
 
                                     html = template(data.results);
                                     $('#results').html(html);
+                                    showsearchstring="Showing " + data.subtotal + "of " + data.total
+                document.getElementById('showresults').innerHTML = showsearchstring
                                     $("#resultsoverlay").fadeOut();
                                     $("#results").fadeIn();
                                     
@@ -878,7 +881,9 @@ showsearchstring=""
                             offsetnum = offsetnum - 15
                             url = url + "&offset=" + offsetnum
                             $("#resultsoverlay").fadeOut();
-                                    $("#results").fadeIn();  
+                                    $("#results").fadeIn();
+                                    showsearchstring="Showing " + data.subtotal + "of " + data.total
+                document.getElementById('showresults').innerHTML = showsearchstring  
                         }
                         }
                     });
@@ -933,6 +938,8 @@ showsearchstring=""
                     vectorLayer.setSource(vectorSource)
                     vectorLayer.setStyle(styleFunction)
                     $('#results').html(html);
+                    showsearchstring="Showing " + data.subtotal + "of " + data.total
+                document.getElementById('showresults').innerHTML = showsearchstring
 
 
 
@@ -955,6 +962,8 @@ showsearchstring=""
                                     html = template(data.results);
                                     //console.log(html)
                                     $('#results').html(html);
+                                    showsearchstring="Showing " + data.subtotal + "of " + data.total
+                document.getElementById('showresults').innerHTML = showsearchstring
                                     $('#page-content').text('Page ' + page);
                                 },
                             });
@@ -1008,6 +1017,8 @@ showsearchstring=""
 
                     html = template(data.results);
                     $('#results').html(html);
+                    showsearchstring="Showing " + data.subtotal + "of " + data.total
+                document.getElementById('showresults').innerHTML = showsearchstring
                     $("#resultsoverlay").fadeOut();
                     $("#results").fadeIn();
 
@@ -1374,7 +1385,7 @@ Handlebars.registerHelper('checklength', function (v1, v2, options) {
                 }),
 
                 stroke: new ol.style.Stroke({
-                    color: 'rgba(1, 151, 186)',
+                    color: 'rgba(105, 158, 0)',
 
                     width: 1
                 })
