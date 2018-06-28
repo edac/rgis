@@ -139,7 +139,18 @@
         background-color: none;
     }
 
+.expandplus {
 
+    float: right;
+    /* font: initial; */
+    height: 21px;
+    margin-right: 16px;
+    background-color:rgb(205, 214, 212);
+    border: 0;
+ /* background: none; */
+ box-shadow: none;
+ border-radius: 0px;
+}
 
     .navbar {
         border-radius: 0px;
@@ -228,6 +239,11 @@
     background-image: url('images/wait.gif');
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.dstitle{
+    /* margin-left: 10px; */
+
 }
 </style>
 
@@ -381,7 +397,41 @@
 
                 <div class="row" id="resultsouter" style=" border: 2px solid rgb(1, 151, 186); border-radius: 8px; height: 37%; width:102%; overflow:auto; overflow-x: hidden;">
                     <div id="results" style="height: 100%;display:none;"></div>
-                    <div id="resultsoverlay" class="results-overlay"></div>
+                    
+                        <div id="resultsoverlay" class="results-overlay"></div>
+
+                        <!-- <div id="accordion">
+
+                                <div class="card lineunderrow">
+                                  <div class="card-header" id="headingTwo">
+                                    <span class="mb-0"> <span class="dstitle">fart</span>
+                                      <button class="btn btn-link collapsed expandplus" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        +
+                                      </button>
+                                    </span>
+                                  </div>
+                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card lineunderrow">
+                                        <div class="card-header" id="heading3">
+                                          <span class="mb-0"> <span class="dstitle">lol</span>
+                                            <button class="btn btn-link collapsed expandplus" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                              +
+                                            </button>
+                                          </span>
+                                        </div>
+                                        <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                                          <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                          </div>
+                                        </div>
+                                      </div>
+                              </div> -->
+
                 </div>
 
                 <div class="row" style="height: 4%;text-align:center;">
@@ -498,107 +548,124 @@
 
 
 <script id="datasets-template" type="text/x-handlebars-template">
+    <div id="accordion">
+            {{#each this}}
+            <div class="card lineunderrow" id="a{{uuid}}">
+                
+                    <div class="card-header" id="{{uuid}}">
+                      <span class="mb-0">                                                 {{#equal taxonomy "geoimage"}}
+                            <img class="legend" src="images/raster.png">
+                        {{/equal}}
+                        {{#equal taxonomy "file"}}
+                            <img class="legend" src="images/file.png">
+                        {{/equal}}
+                        {{#equal taxonomy "vector"}}
+                            <img class="legend" src="images/vector.png">
+                        {{/equal}}
+                        <span class="dstitle">{{description}}</span>
 
-{{#each this}}
-<div class="row lineunderrow" id="{{uuid}}">
+                        <button class="collapsed expandplus" data-toggle="collapse" data-target="#collapse{{uuid}}" aria-expanded="false" aria-controls="collapse{{uuid}}">
+                                Downloads +
+                              </button>
+                              <!-- <button class="expandplus">Downloads</button> -->
 
-
-
-  <div class="col-md-4">
-	<div >
-			<div>
-
-                                                {{#equal taxonomy "geoimage"}}
-                                                    <img class="legend" src="images/raster.png">
-                                                {{/equal}}
-                                                {{#equal taxonomy "file"}}
-                                                    <img class="legend" src="images/file.png">
-                                                {{/equal}}
-                                                {{#equal taxonomy "vector"}}
-                                                    <img class="legend" src="images/vector.png">
-                                                {{/equal}}
-
-				<span class="title">{{description}}</span>
-			</div> 
-		
-		<!-- <div>Author:{{author}}
-		</div> -->
-	</div>
-  </div>
-  <div class="col-md-3">
-	<div>
-		<div>
-			Download: 
-			{{#each downloads}}
-				{{#each this}}
-					<a href="{{this}}">{{@key}}</a>
-				{{/each}}
-			{{/each}}
-		</div>
-		<div >
-			<span >
-				Metadata: 
-				{{#each metadata}}
- 					{{#each this}}
-  						{{#equal @key "FGDC-STD-001-1998"}}
-    							{{#each this}}
-                                            <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300,centerscreen=true'); return false;">{{@key}}</a>
-    							{{/each}}
-  						{{/equal}}
-					{{/each}}
-                {{/each}}
-                {{#each metadata}}
-                {{#each this}}
-                     {{#equal @key "FGDC-STD-012-2002"}}
-                           {{#each this}}
-                                       <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300,centerscreen=true'); return false;">{{@key}}</a>
-                           {{/each}}
-                     {{/equal}}
-               {{/each}}
-           {{/each}}
-			</span>
-            <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300'); return false;">{{@key}}</a>
-			<span>
-                {{#checklength services 0}}
-				Services: 
-				{{#each services}}
-					{{#each this}}
-						<a href="{{this}}">{{@key}}</a>
-					{{/each}}
-				{{/each}}
-				{{/checklength}}
-			</span>
-		</div>
-        </div>
-   </div>
-	<div class="col-md-2">Last Updated:{{lastupdate}}
-	</div>
-
-        <div class="col-md-1">
+                        <span>
                                 {{#each services}}
                                         {{#each this}}
                                             {{#equal @key "wms"}}
-                                                <button  class="btn btn-default" onclick="addtomap('{{../../../uuid}}','{{../../../name}}','{{ escape ../../../description}}')">Add to map</button>
-					                        {{/equal}}
+                                                <button  class="expandplus" onclick="addtomap('{{../../../uuid}}','{{../../../name}}','{{ escape ../../../description}}')">Add to map</button>
+                                            {{/equal}}
                                         {{/each}}
                                 {{/each}}
-        </div>
+                        </span>
 
-        <div class="col-md-1">
+                        <span>
                                 {{#each services}}
                                         {{#each this}}
                                            {{#equal @key "wms"}}
-                                                <button class="btn btn-default" onclick="zoomto('{{../../../uuid}}')">Go to extent</button>
+                                                <button class="expandplus" onclick="zoomto('{{../../../uuid}}')">Go to extent</button>
                                            {{/equal}}
                                         {{/each}}
                                 {{/each}}
 
+                        </span>
+
+                        
+
+
+                      </span>
+                    </div>
+                    <div id="collapse{{uuid}}" class="collapse" aria-labelledby="heading{{uuid}}" data-parent="#accordion">
+                      <div class="card-body">
+                        
+
+
+
+                            <div class="row">
+
+
+
+
+                                    <div class="col-md-4">
+                                      <div>
+                                          <div>
+                                              Download: 
+                                              {{#each downloads}}
+                                                  {{#each this}}
+                                                      <a href="{{this}}">{{@key}}</a>
+                                                  {{/each}}
+                                              {{/each}}
+                                          </div>
+                                          <div >
+                                              <span >
+                                                  Metadata: 
+                                                  {{#each metadata}}
+                                                       {{#each this}}
+                                                            {{#equal @key "FGDC-STD-001-1998"}}
+                                                                  {{#each this}}
+                                                                              <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300,centerscreen=true'); return false;">{{@key}}</a>
+                                                                  {{/each}}
+                                                            {{/equal}}
+                                                      {{/each}}
+                                                  {{/each}}
+                                                  {{#each metadata}}
+                                                  {{#each this}}
+                                                       {{#equal @key "FGDC-STD-012-2002"}}
+                                                             {{#each this}}
+                                                                         <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300,centerscreen=true'); return false;">{{@key}}</a>
+                                                             {{/each}}
+                                                       {{/equal}}
+                                                 {{/each}}
+                                             {{/each}}
+                                              </span>
+                                              <a id="page-help" href="{{this}}" onclick="window.open(this.href, 'popupwindow', 'width=500,height=300'); return false;">{{@key}}</a>
+                                              <span>
+                                                  {{#checklength services 0}}
+                                                  Services: 
+                                                  {{#each services}}
+                                                      {{#each this}}
+                                                          <a href="{{this}}">{{@key}}</a>
+                                                      {{/each}}
+                                                  {{/each}}
+                                                  {{/checklength}}
+                                              </span>
+                                          </div>
+                                          </div>
+                                     </div>
+                                      <div class="col-md-2">Last Updated:{{lastupdate}}
+                                      </div>
+                                  
+
+
+
+
+
+
+                      </div>
+                    </div>
+                </div></div>
+            {{/each}}
         </div>
-
-
-</div>
-<!-- <hr id="{{uuid}}_hr"> -->
-{{/each}}
 </script>
 
 
