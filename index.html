@@ -48,8 +48,8 @@
     }
 
     .hovered {
-        background-color: honeydew;
-
+        background-color: rgb(1, 151, 186);
+        color:black
 
     }
 
@@ -150,6 +150,19 @@
  /* background: none; */
  box-shadow: none;
  border-radius: 0px;
+}
+
+.expandplushover {
+
+float: right;
+/* font: initial; */
+height: 21px;
+margin-right: 16px;
+background-color:rgb(205, 214, 212);
+border: 0;
+/* background: none; */
+box-shadow: none;
+border-radius: 0px;
 }
 
     .navbar {
@@ -261,7 +274,7 @@
                 <ul class="nav navbar-nav">
                     <li style="cursor: default;"></li>
                     <li style="cursor: default;">
-                        <a>Home</a>
+                        <a >Home</a>
                     </li>
                     <li style="cursor: pointer;">
                         <a data-toggle="modal" data-target="#aboutModal">About</a>
@@ -270,22 +283,23 @@
                         <a data-toggle="modal" data-target="#contactModal">Contact</a>
                     </li>
                     <li style="padding-top: 11px;color:white; margin-left: 50px;">
-                            Title: <input  style="color:#555" id="title" name="title" type="text">
+                            <!-- Search: <input  style="color:#555" id="title" name="title" type="text"> -->
+                            Search: <input  style="color:#555" id="basicquery" name="basicquery" type="text">
                     </li>
-                    <li style="padding-top: 11px;color:white; margin-left: 27px;">
+                    <!-- <li style="padding-top: 11px;color:white; margin-left: 27px;">
                             Keywords: <input style="color:#555" id="keyword" name="keyword" type="text">
-                    </li>
+                    </li> -->
                     <li style="padding-top: 11px;color:white; margin-left: 27px;">
                             <form id="taxonomyform" style="padding-top: 2px">
                                     <label class="radio-inline">
                                       <input id="rasters" type="radio" name="optradio">Rasters
                                     </label>
-                                    <label class="radio-inline">
+                                    <!-- <label class="radio-inline">
                                       <input id="vectors" type="radio" name="optradio">Vectors
                                     </label>
                                     <label class="radio-inline">
                                       <input id="files" type="radio" name="optradio">Files
-                                    </label>
+                                    </label> -->
                                     <label class="radio-inline">
                                             <input id="all" type="radio" name="optradio" checked>All
                                     </label>
@@ -550,9 +564,9 @@
 <script id="datasets-template" type="text/x-handlebars-template">
     <div id="accordion">
             {{#each this}}
-            <div class="card lineunderrow" id="a{{uuid}}">
+            <div class="card lineunderrow " id="id{{uuid}}">
                 
-                    <div class="card-header" id="{{uuid}}" data-toggle="collapse" data-target="#collapse{{uuid}}" aria-expanded="false" aria-controls="collapse{{uuid}}">
+                    <div class="card-header dsline" id="{{uuid}}" data-toggle="collapse" data-target="#collapse{{uuid}}" aria-expanded="false" aria-controls="collapse{{uuid}}">
                       <span class="mb-0">                                                 {{#equal taxonomy "geoimage"}}
                             <img class="legend" src="images/raster.png">
                         {{/equal}}
@@ -673,6 +687,14 @@
 
 <script>
 
+var $accordion = $('#accordion');
+$accordion.on('show.bs.collapse','.collapse', function() {
+    $accordion.find('.collapse.in').collapse('hide');
+});
+
+// $(" .dsline" ).hover(function() {
+// console.log("dscard")
+// });
 
 $( "#taxonomyform" )
   .change(function (event) {
@@ -692,7 +714,7 @@ $( "#taxonomyform" )
     }
     
   })
-
+    basicquery=""
     taxonomy=""
     title = ""
     keyword = ""
@@ -723,6 +745,14 @@ $('#keyword').keyup(function(){
     }
 });
 
+$('#basicquery').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#basicquery').val()) {
+        typingTimer = setTimeout(searchBasicQuery, doneTypingInterval);
+    }
+});
+
+
 $('#title').keyup(function(){
     clearTimeout(typingTimer);
     if ($('#title').val()) {
@@ -736,6 +766,14 @@ function searchKeyword () {
     appendsearch();
 
 }
+
+function searchBasicQuery () {
+
+window.basicquery = $("#basicquery").val()
+appendsearch();
+
+}
+
 function searchTitle () {
 
 window.title = $("#title").val()
@@ -798,6 +836,11 @@ showsearchstring=""
             showsearchstring=showsearchstring+", keywords:"+window.keyword
             appendsearchstr = appendsearchstr + "&keywords=" + window.keyword;
         }
+        if (window.basicquery != "") {
+            showsearchstring=showsearchstring+", query:"+window.basicquery
+            appendsearchstr = appendsearchstr + "&query=" + window.basicquery;
+        }
+        
         if (window.author != "") {
             showsearchstring=showsearchstring+", author:"+window.author
             appendsearchstr = appendsearchstr + "&author=" + window.author;
@@ -933,6 +976,9 @@ showsearchstring=""
 
                                     html = template(data.results);
                                     $('#results').html(html);
+                                    $(" .dsline" ).hover(function() {
+console.log("dscard1")
+});
                                     showsearchstring="Showing " + data.subtotal + "of " + data.total
                 document.getElementById('showresults').innerHTML = showsearchstring
                                     $("#resultsoverlay").fadeOut();
@@ -949,6 +995,9 @@ showsearchstring=""
                             url = url + "&offset=" + offsetnum
                             $("#resultsoverlay").fadeOut();
                                     $("#results").fadeIn();
+                                    $(" .dsline" ).hover(function() {
+console.log("dscard2")
+});
                                     showsearchstring="Showing " + data.subtotal + "of " + data.total
                 document.getElementById('showresults').innerHTML = showsearchstring  
                         }
@@ -1005,8 +1054,34 @@ showsearchstring=""
                     vectorLayer.setSource(vectorSource)
                     vectorLayer.setStyle(styleFunction)
                     $('#results').html(html);
+                    $(" .dsline" ).mouseenter(function() {
+                        src =vectorLayer.getSource()
+                        var features = src.getFeatures();
+                        for(var f=0;f<features.length;f++) {
+                            // selectInteraction.getFeatures().clear()
+                            
+                            selecteduuidstr = "#" + features[f].getId()
+          
+                            $(selecteduuidstr).removeClass("hovered");
+                            if(features[f].getId()== this.id) {
+                                selectInteraction.getFeatures().push(features[f]);
+                                $(this).addClass("hovered");
+                                console.log(this)
+
+                                //break;
+                            }
+                        }            
+                    }).mouseleave(function() {
+                        selectInteraction.getFeatures().clear()
+                        
+            // selecteduuidstr = "#" + selecteduuid
+            // //console.log(selecteduuidstr)
+                    $(this).removeClass("hovered");
+                    }
+                    );
+
                     showsearchstring="Showing " + data.subtotal + "of " + data.total
-                document.getElementById('showresults').innerHTML = showsearchstring
+                    document.getElementById('showresults').innerHTML = showsearchstring
 
 
 
@@ -1029,6 +1104,9 @@ showsearchstring=""
                                     html = template(data.results);
                                     //console.log(html)
                                     $('#results').html(html);
+                                    $(" .dsline" ).hover(function() {
+console.log("dscard")
+});
                                     showsearchstring="Showing " + data.subtotal + "of " + data.total
                 document.getElementById('showresults').innerHTML = showsearchstring
                                     $('#page-content').text('Page ' + page);
@@ -1084,6 +1162,9 @@ showsearchstring=""
 
                     html = template(data.results);
                     $('#results').html(html);
+                    $(" .dsline" ).hover(function() {
+console.log("dscard")
+});
                     showsearchstring="Showing " + data.subtotal + "of " + data.total
                 document.getElementById('showresults').innerHTML = showsearchstring
                     $("#resultsoverlay").fadeOut();
@@ -1136,6 +1217,9 @@ showsearchstring=""
                     $('#pagination-gstore').twbsPagination('destroy');
                     html = '<div class="row lineunderrow"><div class="col-md-12">No Datasets found</div></div>'
                     $('#results').html(html);
+                    $(" .dsline" ).hover(function() {
+console.log("dscard")
+});
                     $("#resultsoverlay").fadeOut();
                     $("#results").fadeIn();
 
@@ -1543,7 +1627,8 @@ var drawvector = new ol.layer.Vector({
         target: 'map',
         view: view
     });
-
+    var selectInteraction = new ol.interaction.Select();
+map.addInteraction(selectInteraction);
     var button = document.createElement('button');
     button.innerHTML = 'Spatial Search';
 
