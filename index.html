@@ -111,7 +111,13 @@
 
     .header {
         background-color: rgb(87, 83, 83);
-        height: 5.5%;
+        height: 3.5%;
+        padding-top: 2px;
+    }
+
+    .header2 {
+        background-color: rgb(14, 18, 19);
+        height: 2%;
     }
 
     .workarea {
@@ -138,8 +144,9 @@
 
     .map {
         /* background-color: hotpink; */
-        height: 45%;
+        height: 40%;
         width: 79.9%;
+        position: relative;
         margin-left: 1px;
         float: left;
         outline-style: solid;
@@ -173,7 +180,8 @@
         margin-top: 3px;
         padding-bottom: -4px;
         /* overflow-y: scroll; */
-        overflow-x: hidden;
+        overflow: hidden !important;
+        /* overflow-x: hidden; */
     }
 
     body {
@@ -217,10 +225,10 @@
 
     /* Link */
 
-    .navbar-default .navbar-nav.>li>a {
+    .navbar-default .navbar-nav>li>a {
         color: #777;
     }
-
+ 
     .navbar-default .navbar-nav>li>a:hover,
     .navbar-default .navbar-nav>li>a:focus {
         color: #333;
@@ -439,12 +447,12 @@
         /* line-height: .4em; */
         background-color: rgba(0, 60, 136, .5);
         border: none;
-        .stbuttontext
+        /* .stbuttontext */
     }
 
     #categories {
         height: 100%;
-        .stbuttontext
+        /* .stbuttontext */
     }
 
     .abutton {
@@ -479,6 +487,17 @@
         border-width: 2px;
         border-style: solid;
         margin-left: 15%;
+    }
+
+    .advancedsearch {
+        width: 142px;
+        background-color: #3793c2;
+        color: #f6fffe;
+        border-radius: 5px;
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        margin-left: 2%;
     }
 
     .searcfield {
@@ -518,14 +537,33 @@
         /* margin-left: 60px;
         margin-top: 7px; */
     }
-
-
-
 </style>
 
 </head>
 
 <body>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Advanced Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Search</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="header">
         <img class="rgislogo" src="images/rgislogo.svg" height="90%" alt="RGIS">
         <button class="showhidebutton" id="show">Show Map</button>
@@ -550,16 +588,7 @@
                 <input id="all" type="radio" name="optradio" checked="">All
             </label>
         </form>
-        <ol class="breadcr">
-            <span>Searching in: </span>
-            <span style="color:#72c5f0" id="userpath"></span>
-            <br>
-            <span> for </span>
-            <span style="color:#72c5f0" id="searchterm"> all datasets</span>
-            <span> of taxonomy </span>
-            <span style="color:#72c5f0" id="taxonomyterm"> all </span>
 
-        </ol>
         <!-- <ul class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><a href="#">Vehicles</a></li>
@@ -628,9 +657,22 @@
         <!-- <button id="SpatialButton" class="btn btn-primary">Spatial Search</button> -->
         <!-- <button id="hidenav">HideNav</button>
         <button id="shownav">ShowNav</button> -->
-
+        <button class="advancedsearch" id="advancedsearch">Advanced Search</button>
     </div>
+    <div class="header2">
+        <ol class="breadcr">
+            <span>Searching in: </span>
+            <span style="color:#72c5f0" id="userpath"></span>
 
+            <span> for </span>
+            <span style="color:#72c5f0" id="searchterm"> any description </span>
+            <span> with a taxonomy of </span>
+            <span style="color:#72c5f0" id="taxonomyterm"> all </span>
+            <span> and a location of </span>
+            <span style="color:#72c5f0" id="bboxterm"> anywhere </span>
+
+        </ol>
+    </div>
     <div class="workarea" id="workarea">
 
         <div class="nav" id="nav">
@@ -904,12 +946,22 @@
     });
     $('#nav').resize(function () {
         windowwidth = $("#workarea").width()
+
         mapwidth = $("#workarea").width() - ($("#nav").width() + 4)
+
+        console.log("XXXXXXXXXXXXXXXXXXXXX")
+        console.log($("#workarea").width())
+        console.log($("#nav").width())
+        console.log($("#datasets").width())
+        console.log($("#results").width())
+        console.log($("#resultsoverlay").width())
+        console.log("XXXXXXXXXXXXXXXXXXXXX")
         $('#map').width(mapwidth);
         $('#datasets').width(mapwidth);
 
     });
     $(window).resize(function () {
+        mapwidth = $("#workarea").width() - ($("#nav").width() + 4)
         console.log("---------------------")
         console.log($("#workarea").width())
         console.log($("#nav").width())
@@ -917,7 +969,7 @@
         console.log($("#results").width())
         console.log($("#resultsoverlay").width())
         console.log("---------------------")
-
+        console.log(mapwidth)
         $('#map').width(mapwidth);
         $('#datasets').width(mapwidth);
     });
@@ -1077,7 +1129,7 @@
         console.log("Basic Query:" + $('#basicquery').val())
         $('#searchterm').text($('#basicquery').val());
 
-            // <span id="taxonomyterm"> all </span>
+        // <span id="taxonomyterm"> all </span>
 
         typingTimer = setTimeout(searchBasicQuery, doneTypingInterval);
         // }
@@ -1160,6 +1212,7 @@
         // }
         if (window.bbox != "") {
             appendsearchstr = appendsearchstr + "&box=" + window.bbox;
+            $('#bboxterm').text(window.bbox);
         }
 
         if (window.title != "") {
@@ -1479,11 +1532,11 @@
             url: url,
             type: 'GET',
             success: function (data) {
-                bbox = data.results["0"].spatial.bbox;
-                minx = bbox[0]
-                miny = bbox[1]
-                maxx = bbox[2]
-                maxy = bbox[3]
+                abbox = data.results["0"].spatial.bbox;
+                minx = abbox[0]
+                miny = abbox[1]
+                maxx = abbox[2]
+                maxy = abbox[3]
                 minxy = [minx, miny]
                 maxxy = [maxx, maxy]
                 toProjection = "EPSG:4326"
@@ -1495,7 +1548,7 @@
                     duration: 2000
                 };
 
-                map.getView().fit(bbox, animationOptions);
+                map.getView().fit(abbox, animationOptions);
 
             },
             error: function (data) {
@@ -1651,13 +1704,13 @@
 
         });
         console.log(window.userpath)
-        if (window.userpath.length > 40)
+        if (window.userpath.length > 90)
             // return window.userpath.substring(0,5)+'...';
             // left=window.userpath.substring(0,10)
             // right=window.userpath.substring(window.userpath.length,-10)
-            $('#userpath').text(window.userpath.substring(0,20)+'...'+window.userpath.substr(-20))
+            $('#userpath').text(window.userpath.substring(0, 20) + '...' + window.userpath.substr(-20))
         else
-                $('#userpath').text(window.userpath)
+            $('#userpath').text(window.userpath)
 
 
         // $('#userpath').text(window.userpath);
@@ -1879,6 +1932,17 @@
     var selectPointerMove = new ol.interaction.Select({
         condition: ol.events.condition.pointerMove
     });
+    map.on('singleclick', function (evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+            //you can add a condition on layer to restrict the listener
+            console.log("a")
+            console.log(feature.N.id);//fart
+            collapseall("id" + feature.N.id)
+           $("#collapse"+ feature.N.id).collapse('show')
+            console.log(feature);
+        });
+
+    });
 
     var element = document.createElement('div');
     element.appendChild(button);
@@ -2057,6 +2121,10 @@
 
 
         $("#map").animate({ height: '0%' }, 0)
+        $("#advancedsearch").click(function () {
+            console.log("show popup")
+            $('#myModal').modal('toggle');
+        });
         $("#hide").click(function () {
             if (mapwidth != 0) {
                 $('#map').width(mapwidth);
@@ -2105,8 +2173,8 @@
             $("#show").hide()
             window.limit = 16
             appendsearch();
-            $("#datasets").animate({ height: '50.7%' }, 500)
-            $("#map").animate({ height: '45%' }, 500)
+            $("#datasets").animate({ height: '50%' }, 500)
+            $("#map").animate({ height: '44%' }, 500)
             $("#SpatialButton").show()
             setTimeout(function () { map.updateSize(); }, 501);
             // $(".maparea").slideDown(500);
