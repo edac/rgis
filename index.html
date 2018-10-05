@@ -1887,6 +1887,16 @@
                         imagerySet: 'Road'
                     })
                 }),
+		new ol.layer.Tile({
+                    'title': 'Google Maps',
+                    'type': 'base',
+                    visible: true,
+                    'opacity': 1.000000,
+                    source: new ol.source.XYZ({
+                        attributions: [new ol.Attribution({ html: '<a href=""></a>' })],
+                        url: 'http://mt1.google.com/vt/lyrs=m@113&hl=en&&x={x}&y={y}&z={z}'
+                    })
+                }),
                 drawvector,
                 vectorLayer
 
