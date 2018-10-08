@@ -527,7 +527,7 @@
         <span class=" searcfield">
 
             Search:
-            <input style="color:#555" id="basicquery" name="basicquery" type="text">
+            <input style="color:#555;    height: 21px;" id="basicquery" name="basicquery" type="text">
 
         </span>
         <form id="taxonomyform" class="taxonomyform radio">Taxonomy:
@@ -950,9 +950,13 @@
 
     $('#basicquery').keyup(function () {
         clearTimeout(typingTimer);
-
-        $('#searchterm').text($('#basicquery').val());
-
+        if ($('#basicquery').val().length>0){
+            window.searchterm=$('#basicquery').val()
+        $('#searchterm').text(window.searchterm);
+        }else{
+            window.searchterm="any description"
+            $('#searchterm').text(window.searchterm);
+        }
 
         typingTimer = setTimeout(searchBasicQuery, doneTypingInterval);
     });
@@ -1011,9 +1015,12 @@
 
         if (window.bbox != "") {
             appendsearchstr = appendsearchstr + "&box=" + window.bbox;
+
             $('#bboxterm').text(window.bbox);
+            window.bboxterm=window.bbox
         }else{
             $('#bboxterm').text("anywhere.");
+            window.bboxterm="anywhere."
         }
 
         if (window.title != "") {
@@ -1135,7 +1142,7 @@
         vectorLayer.setSource(vectorSource)
         vectorLayer.setStyle(styleFunction)
         $('#pagination-gstore').twbsPagination('destroy');
-        html = '<div ><div class="col-md-1">No Datasets found</div></div><div ><div class="col-md-11">No Datasets found</div></div>'
+        html = '<div class="col-md-12">No Datasets Found. You are searching in ' + window.userpath +' for '+window.searchterm+', with a taxonomy of '+window.taxonomy+' and a location of '+window.bboxterm+'</div></div>'
         $('#results').html(html);
         $(" .dsline").hover(function () {
         });
@@ -1617,24 +1624,24 @@
         new ol.layer.Group({
             'title': 'Base maps',
             layers: [
-                new ol.layer.Group({
-                    title: 'Watercolor',
-                    type: 'base',
-                    combine: true,
-                    visible: false,
-                    layers: [
-                        new ol.layer.Tile({
-                            source: new ol.source.Stamen({
-                                layer: 'watercolor'
-                            })
-                        }),
-                        new ol.layer.Tile({
-                            source: new ol.source.Stamen({
-                                layer: 'terrain-labels'
-                            })
-                        })
-                    ]
-                }),
+                // new ol.layer.Group({
+                //     title: 'Watercolor',
+                //     type: 'base',
+                //     combine: true,
+                //     visible: false,
+                //     layers: [
+                //         new ol.layer.Tile({
+                //             source: new ol.source.Stamen({
+                //                 layer: 'watercolor'
+                //             })
+                //         }),
+                //         new ol.layer.Tile({
+                //             source: new ol.source.Stamen({
+                //                 layer: 'terrain-labels'
+                //             })
+                //         })
+                //     ]
+                // }),
 
                 new ol.layer.Tile({
                     title: 'OSM',
@@ -1913,8 +1920,14 @@
     // addInteraction("None");
 
     $(document).ready(function () {
-        $('#userpath').text("/RGIS");
 
+        window.userpath="/RGIS"
+        window.searchterm="any description"
+        $('#userpath').text(window.userpath);
+        
+        $('#basicquery').val("");
+
+        window.bboxterm="anywhere."
 
 
 
@@ -1930,6 +1943,7 @@
                 $('#datasets').width(mapwidth);
             }
             $("#SpatialButton").hide()
+            $("#ClearSpatialButton").hide()
             mapisshowing = false
 
             window.limit = 33
@@ -1967,7 +1981,13 @@
             appendsearch();
             $("#datasets").animate({ height: '50%' }, 500)
             $("#map").animate({ height: '44%' }, 500)
+            if (window.bboxterm.length>10){
+                $("#SpatialButton").hide()
+            $("#ClearSpatialButton").show()
+            }else{
             $("#SpatialButton").show()
+            $("#ClearSpatialButton").hide()
+            }
             setTimeout(function () { map.updateSize(); }, 501);
             if (windowwidth != 0) {
                 $("#workarea").width(windowwidth)
