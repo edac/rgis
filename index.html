@@ -36,6 +36,7 @@
         right: 0px;
         top: 0;
         height: 100%;
+        /* color:#ffffff; */
         background-color: #3793c2;
     }
 
@@ -530,7 +531,7 @@
             <input style="color:#555;    height: 21px;" id="basicquery" name="basicquery" type="text">
 
         </span>
-        <form id="taxonomyform" class="taxonomyform radio">Taxonomy:
+        <form id="taxonomyform" class="taxonomyform radio">Formats:
             <label>
                 <input id="rasters" type="radio" name="optradio">Rasters
             </label>
@@ -548,7 +549,7 @@
     </div>
     <div class="header2">
         <ol class="breadcr">
-            <span>Searching in: </span>
+            <span>You are searching in: </span>
             <span style="color:#72c5f0" id="userpath"></span>
 
             <span> for </span>
@@ -699,13 +700,14 @@
             {{#each this}}
             
             {{#unless @index}}
-            <div class="lineunderrow " id="id{{uuid}}"  onclick="collapseall(id)" style="background-color: rgb(40, 149, 190)">
+            <div class="lineunderrow " id="id{{uuid}}"  onclick="collapseall(id)" style="">
             {{/unless}}
             {{#if @index}}
             <div class="lineunderrow " id="id{{uuid}}"  onclick="collapseall(id)">
             {{/if}}
                     <div class=" dsline " id="{{uuid}}" data-toggle="collapse" data-target="#collapse{{uuid}}" aria-expanded="false" aria-controls="collapse{{uuid}}" data-parent="#accordion">
-                      <span class="mb-0">                                                 {{#equal taxonomy "geoimage"}}
+                      <span class="mb-0">                                                 
+                        {{#equal taxonomy "geoimage"}}
                             <img class="legend" src="images/raster.png">
                         {{/equal}}
                         {{#equal taxonomy "file"}}
@@ -714,9 +716,9 @@
                         {{#equal taxonomy "vector"}}
                             <img class="legend" src="images/vector.png">
                         {{/equal}}
-                        <span class="dstitle">{{description}}</span>
+                        <span class="dstitle dstitle333" id="dstitleid{{uuid}}">{{description}}</span>
                         {{#unless @index}}
-                        <button id="downloadsplusid{{uuid}}" class="leftbuttons downloadsplusall">Download -</button>
+                        <button id="downloadsplusid{{uuid}}" class="leftbuttons downloadsplusall">Download +</button>
                         {{/unless}}
                         {{#if @index}}
                         <button id="downloadsplusid{{uuid}}" class="leftbuttons downloadsplusall">Download +</button>
@@ -854,40 +856,74 @@
 
     downloadsplusID = ""
     function collapseall(id) {
-
-
+        $(".dstitle333").css("color", "#333");
+        $(".dstitle333").css("color", "#333");
+        // $(".dsline").css("background-color", "#fffff");
         if (downloadsplusID === "") {
             downloadsplusID = id
-
+            console.log("downloadsplusID not set.")
 
             if ($("#downloadsplus" + id).text() === "Download +") {
+                console.log(1111)
                 $("#downloadsplus" + id).text("Download -");
                 $("#" + id).css("background-color", "#2895be");
+                $("#" + downloadsplusID).css("color", "#333");
+                $("#dstitle" + id).css("color", "#ffffff");
             } else {
+                console.log(1111111)
                 $("#downloadsplus" + id).text("Download +");
+                // $("#" + id).css("background-color", "#2895be");
+                $("#dstitle" + id).css("color", "#ffffff");
             }
 
 
         } else if (downloadsplusID === id) {
+            console.log(222)
+            console.log(downloadsplusID)
             if ($("#downloadsplus" + id).text() === "Download +") {
                 $("#downloadsplus" + id).text("Download -");
-                $("#" + id).css("background-color", "#2895be");
+                // $("#" + id).css("background-color", "#2895be");
+                $(".dstitle333").css("color", "#333");
+                //$("#dstitle" + id).css("color", "#ffffff");
 
             } else {
+                console.log(333)
+                console.log(downloadsplusID)
                 $("#downloadsplus" + id).text("Download +");
                 $("#" + id).css("background-color", "");
+                // $("#dstitle" + id).css("color", "#ffffff");
+                $(".dstitle333").css("color", "#333");
             }
 
         } else {
 
+            if (id === "") {
+                console.log("44")
+                $("#downloadsplus" + downloadsplusID).text("Download +");
+                $("#" + downloadsplusID).css("background-color", "");
+                $("#" + downloadsplusID).css("color", "#333");
+                console.log("#dstitle" + id)
+                // $("#dstitle" + id).css("color", "#ffffff");
+                $("#downloadsplus" + id).text("Download -");
+                // $("#" + id).css("background-color", "#2895be");
+                // $("#" + id).css("color", "#ffffff");
+                downloadsplusID = id
+            } else {
+                console.log(444)
+                console.log(id)
+                console.log(downloadsplusID)
 
-            $("#downloadsplus" + downloadsplusID).text("Download +");
-            $("#" + downloadsplusID).css("background-color", "");
-            $("#downloadsplus" + id).text("Download -");
-            $("#" + id).css("background-color", "#2895be");
-            downloadsplusID = id
+                $("#downloadsplus" + downloadsplusID).text("Download +");
+                $("#" + downloadsplusID).css("background-color", "");
+                $("#" + downloadsplusID).css("color", "#333");
+                console.log("#dstitle" + id)
+                $("#dstitle" + id).css("color", "#ffffff");
+                $("#downloadsplus" + id).text("Download -");
+                $("#" + id).css("background-color", "#2895be");
+                // $("#" + id).css("color", "#ffffff");
+                downloadsplusID = id
 
-
+            }
         }
 
 
@@ -950,11 +986,11 @@
 
     $('#basicquery').keyup(function () {
         clearTimeout(typingTimer);
-        if ($('#basicquery').val().length>0){
-            window.searchterm=$('#basicquery').val()
-        $('#searchterm').text(window.searchterm);
-        }else{
-            window.searchterm="any description"
+        if ($('#basicquery').val().length > 0) {
+            window.searchterm = $('#basicquery').val()
+            $('#searchterm').text(window.searchterm);
+        } else {
+            window.searchterm = "any description"
             $('#searchterm').text(window.searchterm);
         }
 
@@ -1017,10 +1053,10 @@
             appendsearchstr = appendsearchstr + "&box=" + window.bbox;
 
             $('#bboxterm').text(window.bbox);
-            window.bboxterm=window.bbox
-        }else{
+            window.bboxterm = window.bbox
+        } else {
             $('#bboxterm').text("anywhere.");
-            window.bboxterm="anywhere."
+            window.bboxterm = "anywhere."
         }
 
         if (window.title != "") {
@@ -1142,7 +1178,7 @@
         vectorLayer.setSource(vectorSource)
         vectorLayer.setStyle(styleFunction)
         $('#pagination-gstore').twbsPagination('destroy');
-        html = '<div class="col-md-12">No Datasets Found. You are searching in ' + window.userpath +' for '+window.searchterm+', with a taxonomy of '+window.taxonomy+' and a location of '+window.bboxterm+'</div></div>'
+        html = '<div class="col-md-12">No Datasets Found. You are searching in ' + window.userpath + ' for ' + window.searchterm + ', with a taxonomy of ' + window.taxonomy + ' and a location of ' + window.bboxterm + '</div></div>'
         $('#results').html(html);
         $(" .dsline").hover(function () {
         });
@@ -1152,6 +1188,8 @@
 
 
     function Searcher(url) {
+        window.offset = 0
+        
         $("#resultsoverlay").fadeIn();
         $("#results").fadeOut();
         $.ajax({
@@ -1161,7 +1199,7 @@
                 if (data.total == 0) {
                     NoResults()
                 } else {
-                    collapseall("id" + data.results[0].uuid)
+                    //collapseall("id" + data.results[0].uuid)
                     data.results.mapisshowing = mapisshowing
                     html = template(data.results);
                     $('#results').html(html);
@@ -1205,16 +1243,16 @@
                         thisgeometry = new ol.geom.Polygon(currentFeature.geometry.coordinates);
                         areaArray.push({ 'area': thisgeometry.getArea(), 'id': data.results[i].uuid })
                         newFeatures.push(currentFeature)
-                       // console.log(newFeatures)
+                        // console.log(newFeatures)
 
                     }
                     areaArray.sort(function (a, b) {
                         return a.area - b.area;
                     }).reverse();
                     //console.log(areaArray)
-                    areaArray.forEach(function(item){
-                       // console.log(item.id)
-                        index=newFeatures.findIndex(x => x.id==item.id)
+                    areaArray.forEach(function (item) {
+                        // console.log(item.id)
+                        index = newFeatures.findIndex(x => x.id == item.id)
                         newFeaturesFinal.push(newFeatures[index])
                     })
                     //a.findIndex(x => x.prop2=="yutu");
@@ -1273,13 +1311,16 @@
                         });
                     }
 
+                    collapseall(data.results[0].uuid)
 
                 }
+                collapseall("")
             },
             error: function (data) {
             }
 
         });
+        
     }
 
 
@@ -1448,10 +1489,13 @@
             url: window.searchurl,
             type: 'GET',
             success: function (data) {
+                CurrentPage = 1
 
                 data.results.mapisshowing = mapisshowing
                 html = template(data.results);
                 $('#results').html(html);
+                console.log(4)
+                collapseall("")
             },
             error: function (data) {
                 alert('lol whatever');
@@ -1466,6 +1510,7 @@
                 data.results.mapisshowing = mapisshowing
                 html = template(data.results);
                 $('#results').html(html);
+                $(".dsline").css("background-color", "#fffff");
             },
             error: function (data) {
                 //console.log(data)
@@ -1786,25 +1831,25 @@
     });
 
 
-        maxPoints = 2;
-        geometryFunction = function (coordinates, geometry) {
-            if (!geometry) {
-                geometry = new ol.geom.Polygon(null);
-            }
-            var start = coordinates[0];
-            var end = coordinates[1];
-            geometry.setCoordinates([
-                [start, [start[0], end[1]], end, [end[0], start[1]], start]
-            ]);
-            return geometry;
-        };
-        tvalue = "LineString"
-        draw = new ol.interaction.Draw({
-            source: drawsource,
-            type: /** @type {ol.geom.GeometryType} */ (tvalue),
-            geometryFunction: geometryFunction,
-            maxPoints: maxPoints
-        });
+    maxPoints = 2;
+    geometryFunction = function (coordinates, geometry) {
+        if (!geometry) {
+            geometry = new ol.geom.Polygon(null);
+        }
+        var start = coordinates[0];
+        var end = coordinates[1];
+        geometry.setCoordinates([
+            [start, [start[0], end[1]], end, [end[0], start[1]], start]
+        ]);
+        return geometry;
+    };
+    tvalue = "LineString"
+    draw = new ol.interaction.Draw({
+        source: drawsource,
+        type: /** @type {ol.geom.GeometryType} */ (tvalue),
+        geometryFunction: geometryFunction,
+        maxPoints: maxPoints
+    });
 
     $('#SpatialButton').click(function (event) {
         $("#SpatialButton").hide()
@@ -1920,14 +1965,14 @@
     // addInteraction("None");
 
     $(document).ready(function () {
-
-        window.userpath="/RGIS"
-        window.searchterm="any description"
+        // collapseall("")
+        window.userpath = "/RGIS"
+        window.searchterm = "any description"
         $('#userpath').text(window.userpath);
-        
+
         $('#basicquery').val("");
 
-        window.bboxterm="anywhere."
+        window.bboxterm = "anywhere."
 
 
 
@@ -1956,6 +2001,7 @@
             if (windowwidth != 0) {
                 $("#workarea").width(windowwidth)
             }
+
         });
         $("#show").click(function () {
             //console.log("---------------------")
@@ -1977,16 +2023,16 @@
 
             $("#hide").show()
             $("#show").hide()
-            window.limit = 16
+            window.limit = 15
             appendsearch();
             $("#datasets").animate({ height: '50%' }, 500)
             $("#map").animate({ height: '44%' }, 500)
-            if (window.bboxterm.length>10){
+            if (window.bboxterm.length > 10) {
                 $("#SpatialButton").hide()
-            $("#ClearSpatialButton").show()
-            }else{
-            $("#SpatialButton").show()
-            $("#ClearSpatialButton").hide()
+                $("#ClearSpatialButton").show()
+            } else {
+                $("#SpatialButton").show()
+                $("#ClearSpatialButton").hide()
             }
             setTimeout(function () { map.updateSize(); }, 501);
             if (windowwidth != 0) {
