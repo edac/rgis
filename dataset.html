@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Browse rgis data</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="javascript/jquery.min.js"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+    <script src="javascript/jstree.js"></script>
+    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL">
+    </script>
+    <script src="javascript/ol.js"></script>
+    <script src="javascript/handlebars.js"></script>
+    <script src="javascript/jquery.twbsPagination.js"></script>
+    <script src="javascript/ol3-layerswitcher.js"></script>
+    <script src="javascript/proj4.js"></script>
+    <script src="javascript/ol3gm.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAoMjZX1ZHhaK1ftWRNaiZU3eQZWEYqvco"></script>
+    <link href="css/ol3-layerswitcher.css" rel="stylesheet">
+    <script src="javascript/rgis.js"></script>
+    <script src="javascript/jquery-ui.js"></script>
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <script src="javascript/handlebar_helpers.js"></script>
+</head>
+<style>
+    .navbar-default {
+        background-color: #484848;
+        /* border-color: #fa9700; */
+    }
+    .rgislogo{
+      
+      
+        width: 50%;
+    
+    }
+
+
+.btn{
+    margin: 4px;
+    box-shadow: 1px 1px 5px #888888;
+}
+
+.btn-xs{
+    font-weight: 300;
+}
+   
+.btn-hot {
+color: #fff;
+background-color: #db5566;
+border-bottom:2px solid #af4451;
+}
+
+.btn-hot:hover, .btn-sky.active:focus, .btn-hot:focus, .open>.dropdown-toggle.btn-hot {
+color: #fff;
+background-color: #df6a78;
+border-bottom:2px solid #b25560;
+outline: none;}
+
+
+.btn-hot:active, .btn-hot.active {
+color: #fff;
+background-color: #c04b59;
+border-top:2px solid #9a3c47;
+margin-top: 2px;
+}
+
+.btn-sunny {
+color: #fff;
+background-color: #f4ad49;
+border-bottom:2px solid #c38a3a;
+}
+
+.btn-sunny:hover, .btn-sky.active:focus, .btn-sunny:focus, .open>.dropdown-toggle.btn-sunny {
+color: #fff;
+background-color: #f5b75f;
+border-bottom:2px solid #c4924c;
+outline: none;
+}
+
+
+.btn-sunny:active, .btn-sunny.active {
+color: #fff;
+background-color: #d69840;
+border-top:2px solid #ab7a33;
+margin-top: 2px;
+}
+
+.btn-fresh {
+color: #fff;
+background-color: #51bf87;
+border-bottom:2px solid #41996c;
+}
+
+.btn-fresh:hover, .btn-sky.active:focus, .btn-fresh:focus, .open>.dropdown-toggle.btn-fresh {
+color: #fff;
+background-color: #66c796;
+border-bottom:2px solid #529f78;
+outline: none;
+}
+
+
+.btn-fresh:active, .btn-fresh.active {
+color: #fff;
+background-color: #47a877;
+border-top:2px solid #39865f;
+outline: none;
+outline-offset: none;
+margin-top: 2px;
+}
+
+.btn-sky {
+color: #fff;
+background-color: #0bacd3;
+border-bottom:2px solid #098aa9;
+}
+
+.btn-sky:hover,.btn-sky.active:focus, .btn-sky:focus, .open>.dropdown-toggle.btn-sky {
+color: #fff;
+background-color: #29b6d8;
+border-bottom:2px solid #2192ad;
+outline: none;
+}
+
+.btn-sky:active, .btn-sky.active {
+color: #fff;
+background-color: #0a97b9;
+border-top:2px solid #087994;
+outline-offset: none;
+margin-top: 2px;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+    outline: none;
+    outline-offset: 0px;
+}
+
+
+
+    </style>
+<body>
+    <!--nav-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://rgis.unm.edu/" target="_blank"><img class="rgislogo" src="http://rgis.unm.edu/rgisdev/images/rgislogo.svg" alt="RGIS Logo"></a>
+        </div>
+    </nav>
+
+    <div class="container" itemscope="itemscope" itemtype="http://schema.org/Dataset">
+
+        <!-- main content -->
+        <div class="row">
+            <div class="clearfix">
+                <h4 id="description" itemprop="name"></h4>
+            </div>
+        </div>
+
+
+        <!-- from the metadata (abstract, keywords and placenames) -->
+        <div class="row">
+            <div id="abstract" class="col-md-6 col-sm-6"></div>
+            <div id="contacts" class="col-md-3 col-sm-3"></div>
+            <div id="keyword" class="col-md-3 col-sm-3"></div>
+        </div>
+
+        <div id="preview"></div>
+        <!-- from the service description -->
+        <div class="row"></div>
+        <div id="access" class="row"></div>
+
+
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-offset-0 col-md-4 col-sm-6 col-sm-offset-3">
+                    <p class="footer-nsf">
+                        For more data visit <a href="http://rgis.unm.edu" target="_blank">rgis.unm.edu</a>.
+                        RGIS needs your support to enhance and strengthen the state’s central data repository and services. Please consider donating.  
+                    </p>
+                    <p>
+                        <button  onclick="window.location.href='https://www.unmfund.org/fund/edac-rgis/'" type="button" class="btn btn-hot text-uppercase btn-lg">Donate <span class="" aria-hidden="true"></span></button>
+                    </p>
+                </div>
+                <div class="col-md-offset-4 col-md-4 col-sm-6 col-sm-offset-3">
+                    <p>For comments, questions and technical support please contact <a href="mailto:rgis@edac.unm.edu" target="_blank">rgis@edac.unm.edu</a> at the <a href="http://edac.unm.edu" target="_blank">Earth Data Analysis Center UNM</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script id="info-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Theme</dt>
+                    <dd>
+                        {{#categories}}
+                        <p><a href="{{../link}}theme={{theme}}">{{theme}}</a> &gt; <a href="{{../link}}theme={{theme}}&subtheme={{subtheme}}">{{subtheme}}</a> &gt; <a href="{{../link}}theme={{theme}}&subtheme={{subtheme}}&groupname={{groupname}}">{{groupname}}</a>
+                            <p>
+                                {{/categories}}
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Date Added</dt>
+                    <dd itemprop="temporal">{{#lastupdate}}{{#displayDate this}}{{/displayDate}}{{/lastupdate}}</dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Type</dt>
+                    <dd><span class="taxonomy {{taxonomy}}">{{taxonomy}}</span></dd>
+                </dl>
+            </div>
+        </div>
+    </script>
+
+    <script id="abstract-template" type="text/x-handlebars-template">
+
+        <h5>Description</h5>
+        {{#abstract}}
+        <p>{{this}}</p>
+        {{/abstract}} {{^abstract}}
+        <p>No description available.</p>
+        {{/abstract}}
+
+
+
+    </script>
+
+    <script id="access-template" type="text/x-handlebars-template">
+        <!-- <div class="row">
+            <div class="col-sm-4 ">
+			<h5>Share</h5>
+			<a class="btn-lg" href="mailto:?subject=A%20data%20set%20from%20the%20NM%20EPSCoR%20data%20portal%20has%20been%20shared%20with%20you&body=I%E2%80%99ve%20shared%20{{description}}from%20the%20NM%20EPSCoR%20data%20portal%20with%20you.%20Click%20on%20the%20link%20below%20to%20view%3A%0A%0D%0Ahttp%3A%2F%2Fdata.nmepscor.org%2Finfo.html%3Fuuid&#61;{{uuid}}">
+				<span class="glyphicon glyphicon-envelope"></span></a>E-mail<br>
+			<a class="btn-lg hover-tip" data-content="http://data.nmepscor.org/info.html?uuid={{uuid}}"><span class="glyphicon glyphicon-link"></span></a>Direct Link
+	</div>
+	</div>-->
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4 itemprop="distribution" itemscope="itemscope" itemtype="http://schema.org/DataDownload">Downloads</h4>
+                {{#downloads}} {{#eachkeys this}}
+                <a class="label label-primary" href="{{this.value}}">
+                    <meta itemprop="contentUrl" content="{{this.value}}"><span itemprop="description">{{this.key}}</span></a>
+                {{/eachkeys}} {{/downloads}}
+            </div>
+            {{#if services}}
+
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Services</h4>
+                {{#services}} {{#eachkeys this}}
+                <a class="label label-primary" href="{{this.value}}">{{this.key}}</a> {{/eachkeys}} {{/services}}
+            </div>
+            {{/if}}
+
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Documentation</h4>
+                {{#metadata}}
+                <dl>
+                    {{#eachkeys this}}
+                    <dt>{{this.key}}</dt>
+                    <dd>
+                        {{#eachkeys this.value}}
+                        <a class="label label-primary" href="{{this.value}}">{{this.key}}</a> {{/eachkeys}}
+                    </dd>
+                    {{/eachkeys}}
+                </dl>
+                {{/metadata}}
+            </div>
+
+
+
+        </div>
+
+        </div>
+    </script>
+
+    <script id="contact-template" type="text/x-handlebars-template">
+        <div itemtype="http://schema.org/Person" itemprop="author">
+            <h5>Point of Contact</h5>
+            <p><span itemprop="name">Name: </span> {{name}}</p>
+            <!-- {{#position}}
+            <p><span>Position: </span> {{position}}</p>{{/position}} -->
+            <p><span itemprop="worksFor affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">Organization: </span> {{organization}}</p>
+            <p><span itemprop="email">Email: </span> {{email}}</p>
+            <p><span>Phone: </span> {{phone}}</p>
+        </div>
+
+        </div>
+    </script>
+    <script id="keyword-template" type="text/x-handlebars-template">
+        <div>
+            <h5>Keywords</h5>
+            <ul>
+                {{#each keywords}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </script>
+
+    <script id="preview-template" type="text/x-handlebars-template">
+        <div class="row" id="preview-section">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- <h5>Spatial Coverage</h5> -->
+                <div id="map"></div>
+                <p id="coverage-bbox"></p>
+            </div>
+        </div>
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+
+
+function parse_query(partial_url) {
+    //convert to kvp (via http://stackoverflow.com/a/2880929)
+    var params = {};
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
+
+    var query = partial_url !== undefined ? partial_url : window.location.search.substring(1) 
+        
+    while (match = search.exec(query))
+       params[decode(match[1])] = decode(match[2]);
+
+    return params;
+}
+
+function redirect(event) {
+    //redirect to the dataset/collection description page (or any other page with this data tag)
+    var url = this.getAttribute('data-ref');
+    window.location.href=url;
+}
+
+        var _base_url = "https://gstoredev.unm.edu/apps/rgis/datasets/";
+        var map;
+
+        $(document).ready(function() {
+            //get the dataset uuid and grab the service description
+
+
+            var params = parse_query();
+
+
+            var uuid = params['uuid'];
+            var datatype = params['type'];
+
+            var service_url = _base_url + uuid + '/services.json'
+            $.ajax({
+                url: service_url,
+                // crossDomain: true,
+                dataType: "json"
+            }).fail(function(jq, err) {
+                //console.log(err);
+            }).done(function(data) {
+
+                if (data.taxonomy !== 'table') {
+                    execute_template('preview-template', data, $('#preview'));
+                }
+
+                //load stuff up
+                $('#description').html(data.description);
+                document.title += ' ' + data.description;
+                var bbox;
+                //include the links to the categories for a one-click return to search
+
+                execute_template('info-template', $.extend({}, data, {
+                    'link': 'index.html?'
+                }), $('#info'));
+                execute_template('access-template', data, $('#access'));
+                if (data.taxonomy !== 'table') {
+                    bbox = $.map(data.spatial.bbox, function(v) {
+                        return parseFloat(v);
+                    });
+                    // execute_map(bbox);
+                }
+                //get the fgdc metadata xml record
+                var metadata_url = get_metadata_url(data);
+                if (metadata_url !== '') {
+                    call_metadata(metadata_url);
+                }
+
+                /*if (data.taxonomy === 'vector') {
+                    $('#preview-block').removeClass('hidden');
+                }*/
+            });
+
+            //needed for the chart preview
+            /*get_attribute_list(uuid);
+
+            $('#attribute-options').change(function() {
+                var short_name = $(this).find('option:selected').attr('id');
+                var desc = $(this).val();
+
+                execute_chart(uuid, short_name, desc)
+            });*/
+
+        });
+
+        function get_attribute_list(uuid) {
+            $.ajax({
+                url: _base_url + uuid + '/attributes.json',
+                crossDomain: true,
+                dataType: 'json'
+            }).success(function() {
+
+            }).error(function(jq, err) {
+                console.log(err);
+            }).success(function(data) {
+                //add the name and description to the select
+                //IF and ONLY IF it's a double and NOT a date/time
+                var h = [];
+                $.each(data.results, function(index, value) {
+                    if (value.datatype === 'double') {
+                        h.push('<option id="' + value.name + '" data-attuuid="' + value.uuid + '">' + value.description + '</option>');
+                    }
+                });
+
+                $('#attribute-options').html(h.join(''));
+            });
+        }
+
+        function get_metadata_url(data) {
+            var mu = '';
+            $.each(data['metadata'], function(index, value) {
+                var key = Object.keys(value)[0];
+                if (key.indexOf('FGDC') !== -1) {
+                    mu = value[key]['xml'];
+                }
+            });
+            return mu;
+        }
+
+        function call_metadata(metadata_url) {
+            $.ajax({
+                url: metadata_url,
+                dataType: 'xml',
+                crossDomain: true
+            }).fail(function(jq, err) {
+                console.log(err);
+            }).done(function(xml) {
+                //convert the bits we want to json
+                //and then send to the templates
+
+                /** abstract, keywords, point of contact, metadata contact **/
+
+                var abstract = $(xml).find("metadata > idinfo > descript > abstract").text();
+                var keyword_elements = $(xml).find("metadata > idinfo > keywords > theme > themekey");
+                var keywords = [];
+                $.each(keyword_elements, function(i, v) {
+                    keywords.push(v.textContent);
+                });
+
+                var ptcontac = $(xml).find("metadata > idinfo > ptcontac > cntinfo");
+                var contact = extract_contact(ptcontac);
+
+                var keyword = {};
+                keyword['keywords'] = keywords;
+
+                var data = {};
+                data['abstract'] = abstract;
+
+                execute_template('abstract-template', data, $('#abstract'));
+                execute_template('contact-template', contact, $('#contacts'));
+                execute_template('keyword-template', keyword, $('#keyword'));
+
+            });
+        }
+
+        function execute_template(template, data, root) {
+            var template = Handlebars.compile(document.getElementById(template).innerHTML);
+            root.html(template(data));
+
+            $('a.hover-tip').not('.disabled').popover({
+                html: true,
+                placement: 'right'
+            });
+
+        }
+
+        // function execute_map(bbox) {
+        //     if (bbox != null) {
+        //         map = L.map('map').setView([34.51, -106.26], 6);
+        //         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a><br>NM EPSCoR 2016',
+        //             maxZoom: 18
+        //         }).addTo(map);
+
+        //         var geom;
+        //         if (bbox[0] == bbox[2] && bbox[1] == bbox[3]) {
+        //             geom = L.marker([bbox[1], bbox[0]]);
+        //         } else {
+        //             //$("#preview-section").css({"display": "none"});
+        //             //return;
+        //             geom = L.polygon([
+        //                 [bbox[1], bbox[0]],
+        //                 [bbox[1], bbox[2]],
+        //                 [bbox[3], bbox[2]],
+        //                 [bbox[3], bbox[0]]
+        //             ], {
+        //                 fillColor: '#21aae9',
+        //                 fillOpacity: 1.5,
+        //                 stroke: false
+        //             });
+        //         }
+
+        //         geom.addTo(map);
+        //         //TODO: this is probably not the correct structure for the geometry
+        //         var bbox_str = '<p itemprop="spatial" itemtype="http://schema.org/GeoShape"><meta itemprop="box" content="' + bbox.join(' ') + '">BBOX: ' + bbox + '</p>';
+        //         $('#coverage-bbox').html(bbox_str);
+        //     }
+        // }
+
+        //NOTE: this doesn't work for negative numbers, and NaN as strings (stupid NODATA)
+        //      so I am turning it off for now.
+        function execute_chart(uuid, field, label) {
+            //this is "fake" real data
+            $('#preview').html('');
+            //this just does a quick and dirty "display the first 1000 records" request
+            $.getJSON(_base_url + uuid + '/dataset.json?limit=1000&offset=0&sort=obs&order=desc', function() {}).success(function(data) {
+                var obs = [];
+                var vals = [];
+                var data_arr = [];
+
+                var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%SZ').parse;
+
+                $(data.features).each(function(i, feature) {
+                    obs.push(parseDate(feature.properties.observed.split('+')[0] + 'Z'));
+                    v = parseFloat(feature.properties[field]);
+                    vals.push(v == -99 ? null : v);
+                    data_arr.push([parseDate(feature.properties.observed.split('+')[0] + 'Z'), v < 0 ? null : v]);
+                });
+
+                var startdate = new Date(Math.min.apply(null, obs));
+                var enddate = new Date(Math.max.apply(null, obs));
+                //var startval = 0.0;
+                var startval = Math.min.apply(Math, vals) - 1;
+                var endval = Math.max.apply(Math, vals) + 1;
+
+                var margin = {
+                        top: 20,
+                        right: 80,
+                        bottom: 70,
+                        left: 50
+                    },
+                    width = 860 - margin.left - margin.right,
+                    height = 350 - margin.top - margin.bottom;
+
+                var x = d3.time.scale().range([0, width]);
+                var y = d3.scale.linear().range([height, 0]);
+
+                var x_axis = d3.svg.axis().scale(x).orient('bottom').tickFormat(d3.time.format('%b-%d'));
+                var y_axis = d3.svg.axis().scale(y).orient('left').tickSize(-width);
+
+                //prep the data
+                var line = d3.svg.line()
+                    .interpolate('basis')
+                    .defined(function(d) {
+                        return d[1];
+                    }) //to skip over null values
+                    .x(function(d) {
+                        return x(d[0]);
+                    })
+                    .y(function(d) {
+                        return y(d[1]);
+                    });
+
+                //set up the chart
+                var vis = d3.select('#preview')
+                    .append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+                //set up the axes
+                x.domain(d3.extent(data_arr, function(d) {
+                    return d[0];
+                }));
+                y.domain([
+                    startval,
+                    endval
+                ]);
+
+
+                vis.append('g')
+                    .attr('class', 'x axis')
+                    .attr('transform', 'translate(0,' + height + ')')
+                    .call(x_axis)
+                    .selectAll('text')
+                    .attr('transform', 'translate(0, 8)rotate(90)')
+                    .style('text-anchor', 'start');
+                vis.append('g')
+                    .attr('class', 'y axis')
+                    .call(y_axis)
+                    .append('text')
+                    .attr('transform', 'rotate(-90)')
+                    .attr('y', -24)
+                    .style('text-anchor', 'end')
+                    .text(label);
+
+                //add the data series
+                vis.append('path')
+                    .attr('d', line(data_arr));
+
+                //add a title
+                /**vis.append('text')
+                    .attr('x', width/4)
+                    .attr('y', 20)
+                    .text(title); **/
+            }).error(function(jq, err) {
+                console.log(err);
+            });
+        }
+
+        function extract_contact(contact) {
+            //from fgdc metadata after cntinfo
+            var name = '';
+            var org = '';
+            var position = undefined;
+
+            var cntperp = contact.find('cntperp');
+            console.log(cntperp)
+            if (cntperp !== undefined) {
+                name = cntperp.find('cntper').text();
+                console.log(name)
+                org = cntperp.find('cntorg').text();
+                console.log(org)
+            }
+
+            var cntorgp = contact.find('cntorgp');
+            if (cntorgp !== undefined) {
+                name = cntorgp.find('cntper').text();
+                org = cntorgp.find('cntorg').text();
+            }
+
+            position = contact.find('cntpos').text();
+
+            var email = contact.find('cntemail').text();
+            var phone = contact.find('cntvoice').text();
+
+            return {
+                name: name,
+                position: (position !== '') ? position : undefined,
+                organization: org,
+                email: email,
+                phone: phone
+            };
+        }
+
+    </script>
+
+</body>
+
+</html>
+

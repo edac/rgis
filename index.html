@@ -194,7 +194,7 @@
 
     .hovered {
         background-color: rgb(112, 197, 216);
-        color: black;
+        color: black !important;
         cursor: pointer;
     }
 
@@ -799,6 +799,17 @@
                                                         {{/checklength}}
                                                     </span>
                                           </div>
+
+                                          <div class="undercard">
+                                            <span>
+                                                   
+                                                    <span class="cardlabels">Share:</span> 
+
+                                                            <a class="abutton" href="dataset.html?uuid={{uuid}}">Direct Link</a>
+                           
+                                                </span>
+                                          </div>
+
                                           <div class="undercard">
                                                 Last Updated:{{lastupdate}}
                                           </div>
@@ -817,6 +828,18 @@
 
 
 <script>
+    function copytoclip(uuid, event) {
+        event.stopPropagation();
+        console.log("aaa")
+        console.log(uuid)
+        console.log("bbb")
+        navigator.clipboard.writeText("dataset.html?uuid=" + uuid).then(function () {
+            console.log('Async: Copying to clipboard was successful!');
+        }, function (err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+
+    }
     mapwidth = 0
     windowwidth = 0
     $("#nav").resizable({
@@ -881,6 +904,8 @@
             console.log(222)
             console.log(downloadsplusID)
             if ($("#downloadsplus" + id).text() === "Download +") {
+                console.log(22222222)
+                $("#" + id).css("background-color", "#2895be");
                 $("#downloadsplus" + id).text("Download -");
                 // $("#" + id).css("background-color", "#2895be");
                 $(".dstitle333").css("color", "#333");
@@ -1189,7 +1214,7 @@
 
     function Searcher(url) {
         window.offset = 0
-        
+
         $("#resultsoverlay").fadeIn();
         $("#results").fadeOut();
         $.ajax({
@@ -1277,6 +1302,9 @@
 
                             $(selecteduuidstr).removeClass("hovered");
                             if (features[f].getId() == this.id) {
+                                console.log("xxx")
+                                console.log(this.id)
+                                $("#dstitleid"+this.id).addClass("hovered");
                                 selectInteraction.getFeatures().push(features[f]);
                                 $(this).addClass("hovered");
                                 // //console.log(this)
@@ -1287,7 +1315,7 @@
                     }).mouseleave(function () {
                         selectInteraction.getFeatures().clear()
 
-
+                        $("#dstitleid"+this.id).removeClass("hovered");
                         $(this).removeClass("hovered");
                     }
                     );
@@ -1320,7 +1348,7 @@
             }
 
         });
-        
+
     }
 
 
